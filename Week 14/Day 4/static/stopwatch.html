@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: cornflowerblue;
+        }
+
+        div {
+            font-size: 12rem;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        button {
+            font-family: sans-serif;
+            color: white;
+            font-size: 2rem;
+            padding: 1rem 3rem;
+            margin: 2rem;
+            border-radius: 10px;
+        }
+
+        #start {
+            background-color: forestgreen;
+        }
+
+        #stop {
+            background-color: firebrick;
+        }
+
+        #reset {
+            background-color: goldenrod;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="hour">00</div>
+        <div>:</div>
+        <div id="min">00</div>
+        <div>:</div>
+        <div id="sec">00</div>
+    </div>
+
+    <div class="container">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+    </div>
+</body>
+<script>
+    //DOM QUERY SELECTOR 
+    //=======================================================================
+    const hourElem = document.querySelector("#hour");
+    const minElem = document.querySelector("#min");
+    const secElem = document.querySelector("#sec");
+
+    const startButton = document.querySelector("#start");
+    const stopButton = document.querySelector("#stop");
+    const resetButton = document.querySelector("#reset");
+
+    //Setting up the UI for timer
+    //======================================================================
+    startTime = Date.now();
+
+    function displayTime() {
+        const currentTime = Date.now()
+        let newTime = currentTime - startTime;
+        secElem.textContent = newTime;
+
+        setTimeout(displayTime, 1000);
+    }
+
+    startButton.addEventListener("click", evt => {
+        displayTime()
+    })
+
+
+</script>
+
+</html>

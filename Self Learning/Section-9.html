@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const weekdays = ['mon', 'tues', 'wed', 'thur', 'fri', 'sat', 'sun']
+        const openingHours = {
+            //NEW TO ES6
+            [weekdays[3]]: {
+                open: 12,
+                close: 22,
+            },
+            [weekdays[4]]: {
+                open: 11,
+                close: 23,
+            },
+            [weekdays[5]]: {
+                open: 0, // Open 24 hours
+                close: 24,
+            },
+        }
+        const restaurant = {
+            name: 'Classico Italiano',
+            location: 'Via Angelo Tavanti 23, Firenze, Italy',
+            categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+            starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+            mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+            //NEW TO ES6 OBJECT LITERALS
+            openingHours,
+
+            //DON'T HAVE TO WRITE KEY AND FUNCTION
+            order(starterIndex, mainIndex) {
+                return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+            }
+        };
+
+        const rest1 = {
+            name: 'Capri',
+            // numGUest: 20,
+            numGuest: 0,
+        };
+
+        const rest2 = {
+            name: 'La Piazza',
+            owner: 'Giovanni Rossi',
+        };
+
+        //OR ASSIGNMENT OPERATOR: //FALSY VALUE ASSIGNED TO THE 10
+        // rest1.numGuest = rest1.numGuest || 10;
+        // rest2.numGuest = rest2.numGuest || 10;
+
+        //SAME AS ABOVE:
+        // rest1.numGuest ||= 10;
+        // rest2.numGuest ||= 10;
+
+        //NULLISH ASSIGNMENT OPERATOR (null or undefined)
+        // rest1.numGuest ??= 10;
+        // rest2.numGuest ??= 10;
+
+        //AND ASSIGNMENT OPERATOR   
+        // rest1.owner = rest1.owner && 'ANONYMOUS';
+        // rest2.owner = rest2.owner && 'ANONYMOUS';
+
+        rest1.owner &&= 'ANONYMOUS';
+        rest2.owner &&= 'ANONYMOUS';
+
+        console.log(rest1.numGuest);
+        console.log(rest2.numGuest);
+
+        console.log(rest1);
+        console.log(rest2);
+
+        //=====================================FOR OF LOOP=====================================
+        const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+        for (let item of menu) console.log(item);
+
+        for (let [i, el] of menu.entries()) {
+            console.log(`${i + 1}. ${el}`);
+        }
+
+        //==================================OBJECT LITERALS==================================
+        console.log(restaurant.openingHours);
+
+        console.log(restaurant.order(1, 1));
+
+        //===============================OPTIONAL CHAINING===================================
+        //IF IT DOESN'T EXIST - UNDEFINED IS RETURNED
+        console.log(restaurant.openingHours?.mon?.open); //RETURNS UNDEFINED
+
+        console.log(restaurant.openingHours?.fri?.open); //RETURNS 11
+
+        //EXAMPLE 
+        for (const day of weekdays) {
+            const open = restaurant.openingHours[day]?.open ?? 'closed';
+            console.log(`On ${day} we open at ${open}`);
+        }
+
+        //METHOD
+        console.log(restaurant.order?.(0, 1) ?? 'Method does not exist'); //print ["Focaccia", "Pasta"]
+        console.log(restaurant.orderRisotto?.(0, 1) ?? 'Method does not exist'); //print Method does not exist
+
+        //ARRAY
+        const user = [{
+            name: "Jay",
+            email: "jay@gmail.com",
+        }]
+
+        console.log(user[0]?.name ?? 'User array empty'); //PRINTS JAY
+        console.log(user[0]?.address ?? 'User array empty'); //Prints User array empty
+
+        //=========================LOOPING OBJECTS (KEY,VALUES,ENTRIES)=====================
+
+        //KEYS
+        const properties = Object.keys(openingHours);
+        console.log(properties)
+
+        for (const day of Object.keys(openingHours)) {
+            console.log(day); //PRINTS thur,fri,sat
+        };
+
+        //VALUES
+        const values = Object.values(openingHours);
+        console.log(values);
+
+        //ENTRIES
+        const entries = Object.entries(openingHours);
+        console.log(entries);
+
+        for (let [day, { open, close }] of entries) {
+            console.log(`On ${day}:00 we open at ${open}:00 and close at ${close}:00`);
+        }
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+a {
+    /*removes underline from the link*/
+    text-decoration: none;
+}
+
+li {
+    /*removes default bullet point from the list*/
+    list-style-type: none;
+    float: right;
+    font-size: 2em;
+    margin-right: 1em;
+}
+
+body {
+    background-color: #EEF5FF;
+}
+
+h1 {
+    font-size: 3em;
+    color: #9EB8D9;
+}
+
+.tableimg {
+    height: 100px; 
+    width: 100px;
+}
+

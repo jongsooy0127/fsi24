@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More Activity</title>
+</head>
+<body>
+    <script src="/people.js"></script>
+    <script>
+        // 1. Using the array.map function, add 100 to each of the following items in the array:
+        const lotsOfNumbers = [7, 46, 99, 32, 15, 46, 23, 47, 15, 82, 17, 83, 97, 95, 97, 31, 16, 96];
+        const add100 = lotsOfNumbers.map((add) => add + 100);
+        console.log(add100);
+
+        // 1b. Print out the array in descending order.
+        const reverseAdd100 = JSON.parse(JSON.stringify(add100.reverse()));
+        console.log(reverseAdd100);
+
+        // 2. Using the lotsOfPeople array, generate a new array that contains a true or false for each item, depending on whether the person is under 21. And then print the number of people under 21, using this array of boolean values.
+        // For example, this portion:
+        // [
+        // ["Edythe", 49],
+        // ["Arthur", 76],
+        // ["Irwin", 12],
+        // ["Mylene", 19],
+        // ["Nicolette", 61],
+        // ]
+        // Would turn into this portion:
+        // [
+        // false,
+        // false,
+        // true,
+        // true,
+        // false,
+        // ]
+
+        // And there are 2 items that are true, so 2 people under 21.
+
+        const under21 = lotsOfPeople.map((age) => {
+            let personsAge = age[1]
+            if (personsAge <= 21) {
+                return true;
+            } else {
+                return false;
+            }
+        })
+
+        console.log(under21);
+
+        // 3. Using the array.map function, convert the following table of F temperatures into C:
+        // C = (F-32)*(5/9)
+
+        const mayTemps = [
+            [86, 78, 85, 79, 86, 78, 80],
+            [84, 82, 74, 85, 83, 82, 79],
+            [76, 79, 80, 81, 82, 81, 78],
+            [77, 79, 83, 84, 85, 80, 78],
+            [83, 81, 78]
+        ];
+    
+    //========HINT: MAP TWICE===============
+    // const mayTempsToCels = [];
+    // mayTempsToCels.push(mayTemps.map((F) => (F[0]-32) * (5/9)));
+    // mayTempsToCels.push(mayTemps.map((F) => (F[1]-32) * (5/9)));
+    // mayTempsToCels.push(mayTemps.map((F) => (F[2]-32) * (5/9)));
+    // mayTempsToCels.push(mayTemps.map((F) => (F[3]-32) * (5/9)));
+    // mayTempsToCels.push(mayTemps.map((F) => (F[4]-32) * (5/9)));
+
+    // console.log(mayTempsToCels);
+
+
+    let celsiusTemps = mayTemps.map((week) => 
+    week.map((day) => 
+    Math.round((day-32) * (5/9))));
+    
+    console.log(celsiusTemps);  
+
+    </script>
+</body>
+</html>

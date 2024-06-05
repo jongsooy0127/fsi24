@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic Tac Toe</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+        gap: 2px;
+    }
+    .cell {
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="board"></div>
+<script>
+    const board = document.querySelector('.board');
+    const cells = Array.from({ length: 9 });
+
+    let currentPlayer = 'X';
+    let winner = null;
+
+    const winningCombos = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    function init() {
+        cells.forEach((cell, index) => {
+            const div = document.createElement('div');
+            div.classList.add('cell');
+            div.dataset.index = index;
+            div.addEventListener('click', handleCellClick);
+            board.appendChild(div);
+        });
+    }
+
+    function handleCellClick(e) {
+        const cellIndex = e.target.dataset.index;
+        if (!cells[cellIndex] && !winner) {
+            cells[cellIndex] = currentPlayer;
+            e.target.textContent = currentPlayer;
+            checkWinner();
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+    }
+
+    function checkWinner() {
+        for (let combo of winningCombos) {
+            const [a, b, c] = combo;
+            if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
+                winner = cells[a];
+                alert(`Player ${winner} wins!`);
+                return;
+            }
+        }
+        if (cells.every(cell => cell)) {
+            alert("It's a draw!");
+            winner = 'draw';
+        }
+    }
+
+    init();
+</script>
+</body>
+</html>

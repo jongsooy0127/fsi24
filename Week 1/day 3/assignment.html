@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    <h1>Register your swimming suit size</h1>
+    <form action="/search">
+        <div>
+            <label for="fname">First Name:</label>
+            <input type="fname" placeholder="Input your first name" name="fname" id="fname">
+        </div>
+
+        <div>
+            <label for="lname">Last Name:</label>
+            <input type="lname" placeholder="Input your last name" name="lname" id="lname">
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" placeholder="Input your email">
+        </div>
+
+        <fieldset>
+            <legend>Select your size:</legend>
+
+            <div>
+                <input type="radio" name="size" id="small" value="small">
+                <label for="small">small</label>
+
+                <input type="radio" name="size" id="medium" value="medium">
+                <label for="medium">medium</label>
+                
+                <input type="radio" name="size" id="large" value="large">
+                <label for="large">large</label>
+            </div>
+
+        </fieldset>
+
+        <button>Submit</button>
+
+       
+    </form>
+
+</body>
+</html>

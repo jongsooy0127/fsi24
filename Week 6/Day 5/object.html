@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object</title>
+</head>
+<body>
+    <script>
+        class Dog {
+            constructor(name, breed, color, sex) {
+            this.name = name;
+            this.breed = breed;
+            this.color = color;
+            this.sex = sex;
+  }
+  toString() {
+    return `Dog ${this.name} is a ${this.sex} ${this.color} ${this.breed}`;
+  }
+}
+
+const gabby = new Dog("Gabby", "Lab", "chocolate", "female");
+
+//Copies do not inherit prototype functions (EX: toString())
+const copyGabby = {...gabby};
+const anotherCopy = Object.assign({}, gabby);
+const thirdCopy = new Dog(...(Object.values(gabby)))
+// Object.setPrototypeOf(copyGabby, gabby);
+// Object.setPrototypeOf(anotherCopy, gabby);
+
+console.log("GABBY:", gabby + "");
+console.log("COPY:", copyGabby + "");
+console.log("ANOTHER:", anotherCopy + "");
+console.log("THIRD COPY:", thirdCopy + "")
+
+//class = easy way of creating objects (blueprint)
+//class and using a function are the same
+    </script>
+</body>
+</html>

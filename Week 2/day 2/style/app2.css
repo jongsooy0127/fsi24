@@ -1,0 +1,24 @@
+body {
+    background-color: lightyellow;
+}
+section {
+    border: 3px solid whitesmoke;
+    /* width: 50%;
+    margin: 0 auto; */
+    width: 58.1%;
+    margin: 0 auto;
+}
+
+.col {
+    height: 130px;
+    width: 130px;
+    background-color: black;
+    display: inline-block;
+    border: 1px solid gray;
+    display: inline-block;
+}
+
+#row1 > .col:nth-child(2n){
+    background-color: white;
+}
+

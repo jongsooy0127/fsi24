@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send POST messages</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        img {
+            width: 15rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="output"></div>
+
+    <script>
+        //GET VERSION
+        // fetch("https://somewhere.com/that/accepts/get?name='Alice'&color='red'&going=true")
+
+        //POST VERSION
+        const stuff = {
+            name: 'Alice',
+            color: 'red',
+            going: true
+        }
+        fetch("https://somewhere.com/that/accepts/post", {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json",
+            },
+            body: JSON.stringify(stuff)
+        })
+            .then(res => res.json())
+            .then(res => {
+                const imgURL = res.message;
+                const newImg = document.createElement("img");
+                newImg.src = imgURL;
+                newImg.alt = "random dog";
+
+                document.querySelector(".output").appendChild(newImg)
+            })
+    </script>
+</body>
+
+</html>

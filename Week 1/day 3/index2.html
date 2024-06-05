@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Learning about creating forms</h1>
+    <form action="/search">
+      <div>
+        <label for="username">Username:</label>
+        <input
+          type="text"
+          placeholder="username"
+          id="username"
+          name="username"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="email"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="password"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="agree">I agree</label>
+        <input type="checkbox" name="agree" id="agree" required />
+      </div>
+
+      <div>
+        <label for="date">Enter your birthdate:</label>
+        <input type="date" name="bday" id="bday">
+      </div>
+
+      <div>
+        <label for="file">Upload your Driver's License</label>
+        <input type="file" name="file" id="file" name="file">
+      </div>
+
+      <fieldset>
+        <legend>Select your size:</legend>
+
+        <div>
+            <input type="radio" name="size" id="small" value="small">
+            <label for="small">small</label>
+
+            <input type="radio" name="size" id="medium" value="medium">
+            <label for="medium">medium</label>
+            
+            <input type="radio" name="size" id="large" value="large">
+            <label for="large">large</label>
+            <!--name should be the same, id and value should be different-->
+        </div>
+    </fieldset>
+
+    <div>
+        <label for="tele">Enter your telephone number:</label>
+        <input type="tel" name="tele" id="tele">
+    </div>
+
+      <button>Register</button>
+      
+    </form>
+    
+    <h2>Search form function</h2>
+    
+        
+    
+    <form action="https://www.google.com/search">
+
+            <label for="search">Search on Google:</label>
+            <input type="search" name="q" id="search">
+
+            <button>Search</button>
+
+            <label for="search">Search on Amazon:</label>
+            <input type="search" name="" id="">
+
+    
+    </form>
+  </body>
+</html>

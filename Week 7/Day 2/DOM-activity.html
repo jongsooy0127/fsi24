@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS DOM Exercise 3</title>
+</head>
+
+<body>
+    <p>
+        Using only JS, generate the necessary HTML to re-create the text in the image:<br>
+        <img src="./js-dom-exercise3-1.png" /><br>
+        The text includes parts in bold and parts that are anchor links to remote websites. The "standards organization" text should link to https://en.wikipedia.org/wiki/Standards_organization and the "World Wide Web" text should link to https://en.wikipedia.org/wiki/World_Wide_Web_Consortium on your finished result.
+    </p>
+    <hr>
+    <p>
+        Using the following array:
+    </p>
+    <pre>
+        let languages = ['JavaScript', 'Node', 'Vue', 'React'];
+    </pre>
+    Create an unordered list with only JS that will appear in a browser like the following image:<br>
+    <img src="./js-dom-exercise3-2.png">
+    <p></p>
+    <hr>
+    <p>
+        Create an HTML file uploading section using only JS that will appear like the following image:<br>
+        <img src="./js-dom-exercise3-3.png"><br>
+        Note that the "No file chosen" text is automatically produced by the input element.
+    </p>
+
+    <script>
+        //FIRST QUESTION=========================================================================
+        let p = document.createElement("p");
+        let firstImg = document.querySelector("img");
+
+        firstImg.after(p);
+
+        let standardOrganization = `<a href="https://en.wikipedia.org/wiki/Standards_organization">standards organization</a>`
+        let worldWideWeb = `<a href="https://en.wikipedia.org/wiki/World_Wide_Web_Consortium">World Wide Web</a>`
+
+        p.innerHTML=`The <b>World Wide Web Consortium</b>, abbreviated as acronym <b>W3C</b>, is a 
+        ${standardOrganization} non-profit organization responsible for promoting the compatibility of the ${worldWideWeb}`
+
+        //SECOND QUESTION=========================================================================
+        let languages = ['JavaScript', 'Node', 'Vue', 'React'];
+
+        let secondP = document.createElement("p");
+        let secondImg = document.querySelectorAll("img")[1];
+        
+        secondImg.after(secondP);
+        secondP.innerHTML="Languages based on ECMAScript:";
+
+        let ul = document.createElement("ul");
+        secondP.after(ul)
+
+        for (let type of languages) {
+            const li = document.createElement('li');
+            ul.appendChild(li)
+            const liText = li.textContent=type;
+        };
+
+        //THIRD QUESTION===========================================================================
+        const fieldset = document.createElement("fieldset");
+        const legend = document.createElement("legend");
+        let thirdImg = document.querySelectorAll("img")[2];
+        thirdImg.after(fieldset);
+        fieldset.appendChild(legend);
+        
+        fieldset.style = `
+            width: 45%;
+        `
+
+        legend.textContent="Upload an image";
+        const span = document.createElement("span");
+        span.textContent = "Image to upload:";
+        const div = document.createElement("div");
+        fieldset.appendChild(div);
+        div.appendChild(span);
+        const input = document.createElement("input")
+        const inputAttr = input.setAttribute("type", "file");
+
+        div.appendChild(input)
+
+        const button = document.createElement("button")
+        button.textContent = "Send";
+        div.after(button);
+        
+        div.style = `
+            display: flex;
+            justify-content: center;
+        `
+
+        button.style = `
+            margin: auto;
+            margin-top: 1em;
+            display: block;
+        `
+    </script>
+
+</body>
+
+</html>

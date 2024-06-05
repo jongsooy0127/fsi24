@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity</title>
+</head>
+<body>
+    <script src="/people.js"></script>
+    <script src="/letters.js"></script>
+    <script>
+        // 4. Find all vowels in the lotsOfLetters array provided in the letter.js file and extract them into another array.
+        let vowelArr = lotsOfLetters.filter((vowel) => "aeiou".includes(vowel));
+        console.log(vowelArr); 
+        
+
+        // 5. Remove every "z" in the lotsOfLetters array
+        let noZArr = lotsOfLetters.filter((letters) => letters !== "z")
+        console.log(noZArr); 
+
+
+        // 6. Display all the data in the given array in the following format:
+        // "Chris" 19
+        // "Georges" 33
+        // ...
+        const kids = [
+            ["Chris", 19],
+            ["Georges", 33],
+            ["Dustin", 29],
+            ["Wendy", 35],
+        ];
+        let nameAge = kids.forEach(kid => console.log(`"${kid[0]}" ${kid[1]}`))
+
+        // BONUS:
+        // In the lotsOfPeople array provided in the people.js file:
+        // - Count how many people have a name starting with the letter "E"
+        let namesWithE = lotsOfPeople.filter((person) => {
+            let name = person[0];
+            return name.indexOf("E") === 0;
+        })
+        console.log(namesWithE.length);
+
+        // - Count how many people are over 50 years old
+        let ageOver50 = lotsOfPeople.filter((age) => age[1] >= 50);
+
+        console.log(ageOver50.length);
+
+        // - Remove the people under 21 from the array
+        let under21 = lotsOfPeople.filter((age) => age[1] >= 21);
+        
+        console.log(under21);
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.blue {
+    height: 720px;
+    width: 300px;
+    background-color: navy;
+    display: inline-block;
+    border: solid 4px black;
+    border-right: 0px;
+}
+
+.white {
+    height: 720px;
+    width: 300px;
+    background-color: white;
+    display: inline-block;
+    border: solid 4px black;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.red{
+    height: 720px;
+    width: 300px;
+    background-color: red;
+    display: inline-block;
+    border: solid 4px black;
+    border-left: 0px;
+}
+
+section {
+    height: 600px;
+    width: 600px;
+    background-color: red;
+}
+
+div {
+    height: 300px;
+    width: 300px;
+    background-color: rgba(100, 84, 241, .5);
+}

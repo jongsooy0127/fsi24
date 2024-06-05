@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More Activities</title>
+</head>
+<body>
+    <script src="/cars.js"></script>
+    <script>
+        // Create an object user with a firstName, a lastName, and an age.
+            // Then add 10 years to the age of the user.
+            const user = [
+                {
+                    firstName: "Jay",
+                    lastName: "Yoon",
+                    age: 30
+                }
+            ];
+
+            user[0].age += 10;
+            console.log(`USER'S AGE: ${user[0].age}`)
+
+            // Create two other user objects and group them together in a "users" variable.
+            // Then display in the console on a single line, all the users' fullnames.
+            let usPres = {
+                firstName: "Joe",
+                lastName: "Biden",
+                age: 81
+            }
+
+            let krPres = {
+                firstName: "Suk Yeok",
+                lastName: "Yoon",
+                age: 63
+            }
+
+            user.push(usPres, krPres);
+
+            let fullNameArr = [];
+
+            for (let i = 0; i < user.length; i++) {
+                let fullName = user[i].firstName + " " + user[i].lastName
+                fullNameArr.push(fullName);
+            }
+                fullNameArr = fullNameArr.join(" ");
+                console.log(fullNameArr);
+
+            // Add a length property to all of your users that will return the length of their full name.
+            for (let i = 0; i < user.length; i++) {
+                let fullName = user[i].firstName + " " + user[i].lastName;
+                console.log(`${fullName}: ${fullName.length}`);
+            }
+
+            // Use the allVehicles array from the cars.js file and:
+            // Create a function that returns the cars that were produced the last 5 years
+
+            allVehicles.sort((a,b) => a.productionYear - b.productionYear);
+            last5Cars = allVehicles.slice(-5)
+            // Then display manufacturer and model names of those newer cars.
+            for (let i = 0; i < last5Cars.length; i++) {
+                console.log(`Manufacturer: ${last5Cars[i].manufacturer} - Model: ${last5Cars[i].model} Year: ${last5Cars[i].productionYear}`);
+            }
+            // Sort all the vehicles by production year date.
+            sortCars = allVehicles.sort((a,b) => a.productionYear - b.productionYear);
+            console.table(sortCars);
+
+            // BONUS:
+            // Create a function that will convert an object into a array like this:
+            // {firstName: "Philippe", lastName: "Gross"} => [["firstName", "Philippe"], ["lastName", "Gross"]]
+            function convertObj(inObj) {
+                let container = [];
+
+                for (const key of inObj) {
+                    container.push([key], inObj[key]);
+                }
+
+                return container;
+            }
+            const newArr = convertObj({firstName: "Philippe", lastName: "Gross"});
+            console.log("NEW:", newArr);
+
+            // Create a function that will compare two objects and display if they are equal or not.
+            // isEqual({a: 1, b: [1, 2]}, {a: 1, b: [1, 2]}) => true
+            function isEqual (one,two) {
+                let same = true;
+
+                if (typeof one === typeof two) { //Must be the same type to be the same!
+                //Array check before object check, since Arrays are a kind of object
+                    if (Arr.isArray(one) && Arr.isArray(two)) {
+                        if (one.length !== two.length) same = false; // Cheap check
+                        else {
+                            for (let i = 0; i < one.length; i++) {
+                                same = isEqual(one[i], two[i]);
+                                if (!same) break;
+                            }
+                        }
+                    }
+                    else if (typeof one === "object") { //Object, but not Array
+                        //for (const key in one)
+                        for (const key of Object.keys(one)) { // Same as "for in" above
+                            if (two.hasOwnProperty(key)) {//Cheap check
+                            same = isEqual(one[key], two[key]);
+                            if (!same) break;
+                            }
+                            else {
+                                same = false;
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        //Not object or array - most likely string, number, boolean, etc
+                        // if (one !== two)
+                    }
+                }
+            }
+    </script>
+</body>
+</html>

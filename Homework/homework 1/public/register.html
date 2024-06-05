@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <a class="logo" href="../index.html"
+      ><img
+        src="https://static.vecteezy.com/system/resources/previews/009/124/763/non_2x/jay-logo-jay-letter-jay-letter-logo-design-initials-jay-logo-linked-with-circle-and-uppercase-monogram-logo-jay-typography-for-technology-business-and-real-estate-brand-vector.jpg"
+        alt="logo"
+        height="200px"
+    /></a>
+    <nav>
+      <ul>
+        <li><a href="../public\register.html">Register</a></li>
+        <li><a href="../public\prebuilt.html">Prebuilt</a></li>
+        <li><a href="../public\aboutus.html">About Us</a></li>
+      </ul>
+    </nav>
+    <br />
+    <h1>Create an account</h1>
+    <br />
+
+    <form action="/register">
+      <div>
+        <label for="username">Create username:</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="username"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <label for="password">Create password:</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="password"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <label for="email"
+          >Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label
+        >
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="email"
+          required
+        />
+      </div>
+      <br />
+      <p>Select your membership</p>
+      <div>
+        <input
+          type="radio"
+          name="membership"
+          id="basic"
+          value="basic"
+          required
+        />
+        <label for="basic">Basic</label>
+        <input type="radio" name="membership" id="vip" value="vip" />
+        <label for="vip">VIP (+$25 anually)</label>
+      </div>
+      <br />
+      <button>Submit</button>
+    </form>
+  </body>
+</html>

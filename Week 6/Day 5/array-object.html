@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array vs Object</title>
+</head>
+<body>
+    <script src="/people.js"></script>
+    <script>
+console.log("PEEPS:", lotsOfPeople);
+
+//Get avg age of everyone
+const avgAge = lotsOfPeople.reduce((acc,person) =>acc + person[1], 0) / lotsOfPeople.length;
+console.log("AVG AGE:", avgAge);
+
+//Another way
+let acc = 0;
+lotsOfPeople.forEach(person => acc += person[1]);
+const totalAges = acc / lotsOfPeople.length
+console.log("AVG AGE:", totalAges);
+
+//Everyone between 32 and 36 inclusive
+const oldPeople = lotsOfPeople.filter((maybeOld) => maybeOld[1] >= 32 && maybeOld[1] <= 36);
+console.log(oldPeople);
+
+//Get the age of 'Dock'
+let dock = lotsOfPeople.filter((findDock) => findDock[0] === "Dock");
+console.log("DOCK:", dock[0][1]);
+
+for (let i = 0; i < lotsOfPeople.length; i++) {
+    if (lotsOfPeople[i][0] === "Dock") {
+        console.log("DOCK:", lotsOfPeople[i][1]);
+        break;
+    }
+}
+
+const allThePeople = {};
+//allThePeople['Rufus'] = 99; //Same format as below
+lotsOfPeople.forEach(
+    person => {
+        let newName = person[0];
+        if (allThePeople.hasOwnProperty(newName)) {
+            console.log("ALREADY EXISTS!:", newName);
+            newName +=2
+        }
+        allThePeople[newName] = person;
+    }
+);
+
+//Object - Average Age
+const allAges = Object.values(allThePeople);
+const totalAgesObjs = allAges.reduce((acc, age) => acc + age, 0);
+console.log("AVG AGE:", totalAgesObjs / allAges.length);
+
+//Process w/ object between ages of 32 - 36
+let everyone = ""
+for (const maybeOld in allThePeople) {
+    if (allThePeople[maybeOld] >= 32 && allThePeople[maybeOld] <= 36) {
+        everyone = everyone + maybeOld + ", "
+    }
+}
+console.log("OLD PEOPLE OBJECT:", everyone);
+    </script>
+</body>
+</html>

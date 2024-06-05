@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS DOM Exercise 2</title>
+
+    <style>
+        table,
+        th,
+        tr,
+        td {
+            border: 1px solid black;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 3px 10px;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Hello, <span>??</span> you are connected</h2>
+
+    <div class="myDiv" id="main">This is the text contained inside my div <a href="#">with a link</a></div>
+
+    <table id="myTable">
+        <tr>
+            <th style="border-color: green">Fruit</th>
+            <th style="border-color: #db2929">Color</th>
+        </tr>
+    </table>
+
+    <script>
+        // 1. In the h2 above, replace the ?? with your name
+        let nameChange = document.querySelector("h2>span");
+        nameChange.textContent = `Jay`;
+
+
+        // 2. Recreate the same div as the one with id of "main" with only JS.
+        // Can you put it right under the existing one?
+        
+        let recreateDiv = document.createElement("div");
+        // recreateDiv.setAttribute("id", "main");
+        recreateDiv.id="main" //OR
+        // recreateDiv.setAttribute("class", "myDiv");
+        recreateDiv.className="myDiv" //OR
+
+        let firstDiv = document.querySelector("div");
+        recreateDiv.innerHTML = firstDiv.innerHTML;
+
+        firstDiv.after(recreateDiv);
+
+        // 3. Recreate the same table as the table above with only JS under the existing table.
+        // <table id="myTable">
+        //     <tr>
+        //         <th style="border-color: green">Fruit</th>
+        //         <th style="border-color: #db2929">Color</th>
+        //     </tr>
+        // </table>
+
+        const firstTable = document.querySelector('#myTable');
+        let recreateTable = document.createElement('table');
+        recreateTable.setAttribute("id", "myTable");
+        
+        let recreateRow = document.createElement('tr')
+        let recreateInnerTable1 = document.createElement('th');
+        let recreateInnerTable2 = document.createElement('th');
+
+        recreateInnerTable1.style.borderColor="green";
+        recreateInnerTable2.style.borderColor="#db2929";
+
+        recreateInnerTable1.textContent="Fruit";
+        recreateInnerTable2.textContent="Color";
+
+        firstTable.after(recreateTable);
+
+        recreateTable.appendChild(recreateRow);
+        recreateRow.appendChild(recreateInnerTable1);
+        recreateRow.appendChild(recreateInnerTable2);
+
+
+        // 4. Use the next array in a loop to add appropriate row and columns in the table. 
+        const data = [
+            ["banana", "yellow"],
+            ["cherry", "red"],
+            ["apple", "green"],
+            ["grape", "green"],
+        ];
+
+        for (let i = 0; i < data.length; i++) {
+            let createTR = document.createElement("tr");
+            let createColor = document.createElement("td");
+            let createFruit = document.createElement("td")
+                
+            let fruitText = createFruit.textContent=data[i][0];
+            let colorText = createColor.textContent=data[i][1];
+
+            createColor.style.borderColor="#db2929";
+            createFruit.style.borderColor="green";
+            
+            recreateTable.appendChild(createTR);
+            createTR.appendChild(createFruit);
+            createTR.appendChild(createColor);
+        }
+
+
+        // 5. Use the next array to create a form select and the options list
+        // should look like this : <option value="en-US">English</option>
+        const options = [
+            { name: "English", value: "en-US" },
+            { name: "French", value: "fr-FR" },
+            { name: "German", value: "de-DE" },
+            { name: "Korean", value: "ko-KR" },
+            { name: "Japan", value: "ja-JP" },
+        ];
+
+        let createSelect = document.createElement("select");
+        recreateTable.after(createSelect);
+
+        for (let i = 0; i < options.length; i++) {
+            let createOption = document.createElement("option");
+            let nestOption = createSelect.appendChild(createOption);
+            let createValue = createOption.setAttribute("value", options[i].value);
+
+            nestOption.append(options[i].name);
+        }
+
+        //ANOTHER WAY OF DOING THE SAME PROBLEM
+
+        // for (let i = 0; i < options.length; i++) {
+        //     let createOption = document.createElement("option");
+        //     creatOption.value = options[i].value;
+        //     createOption.innerHTML = options[i].name;
+        //     createSelect.appendChild(creaOption)
+        // }
+
+
+        // BONUS:
+        // 6. Create a function that will add the fruit and color given as arguments appropriately into the table above.
+        // Eg. addRow("apple", "yellow") will add a new row with text of "apple" and "yellow"
+
+        function addRow (fruit, color) {
+            let createTR = document.createElement("tr");
+            let createFruit = document.createElement("td");
+            let createColor = document.createElement("td");
+
+            let textFruit = createFruit.textContent = fruit;
+            let textColor = createColor.textContent = color;
+
+            createFruit.style.borderColor="green";
+            createColor.style.borderColor="#db2929";
+
+            recreateTable.appendChild(createTR);
+            createTR.appendChild(createFruit);
+            createTR.appendChild(createColor);
+        }
+
+        addRow("apple", "yellow");
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity</title>
+</head>
+<body>
+    <script src="people.js"></script>
+    <script>
+        
+
+        // 1. Create a function that says hello to the person name provided as an argument.
+        function greetPerson(name) {
+         if (name === undefined) {
+            console.log("Hello!");
+         } else {
+            console.log(`Hello, ${name}!`);
+         }
+        }
+        // console.log("1. Hello, George!:", greetPerson('George'));
+        // console.log("1. Hello, Carrie!:", greetPerson('Carrie'));
+        // console.log("1. Hello, everyone!:", greetPerson('everyone'));
+        // console.log("1. Hello!:", greetPerson());
+
+
+        // 2. Create a function that will tell you if a provided year is a leap year or not.
+        // A year is a leap year if it is divisible by 4 but not 100, or else is divisible by 400.
+        function isLeapYear(year) {
+            if (year % 400 === 0) {
+                console.log(`${year} is a leap year`);
+            } else if (year % 100 === 0) {
+                console.log(`${year} is not a leap year`);
+            } else if (year % 4 === 0) {
+                console.log(`${year} is a leap year`);
+            } else {
+                console.log(`${year} is not a leap year`);
+            }
+        }
+        // console.log("2. Leap Year 2000: true:", isLeapYear(2000));
+        // console.log("2. Leap Year 2003: false:", isLeapYear(2003));
+        // console.log("2. Leap Year 2008: true:", isLeapYear(2008));
+        // console.log("2. Leap Year 2012: true:", isLeapYear(2012));
+        // console.log("2. Leap Year 2023: false:", isLeapYear(2023));
+        // console.log("2. Leap Year 2024: true:", isLeapYear(2024));
+
+
+        // 3. Create a function that will return all the vowels in an array of letters. It should return the vowels found as a new array.
+        function getVowels(letters) {
+            const vowels = [];
+            for (let i = 0; i < letters.length; i++) {
+                if (letters[i] === "a" || letters[i] === "e" || letters [i] === "i" || letters[i] === "o" || letters[i] === "u") {
+                vowels.push(letters[i]);
+                }
+            }
+            return vowels;
+        }
+        // console.log("3. Num vowels: ['e']:", getVowels(['e']));
+        // console.log("3. Num vowels: ['i', 'a', 'o', 'e']:", getVowels(['z', 'i', 'g', 'l', 'a', 'b', 'o', 'e']));
+        // console.log("3. Num vowels: ['i', 'i', 'i', 'e']:", getVowels(['v', 'i', 'q', 'i', 'i', 'e']));
+        // console.log("3. Num vowels: []:", getVowels(['z', 'g', 'l', 'b']));
+        // console.log("3. Num vowels: []:", getVowels([]));
+
+
+        // 4. Create a function that takes an array of people and a name and will return back the age of that person.
+        // Use the lotsOfPeople array from the provided people.js file.
+        function getAgeOfPerson(lotsOfPeople, name) {
+            for (let i = 0; i < lotsOfPeople.length; i++) {
+                if (lotsOfPeople[i][0] === name) {
+                    return lotsOfPeople[i][1];
+                } 
+            }
+            return 0;
+        }
+        // console.log("4. Age of Boyd: 52:", getAgeOfPerson(lotsOfPeople, "Boyd"));
+        // console.log("4. Age of Geovanny: 51:", getAgeOfPerson(lotsOfPeople, "Geovanny"));
+        // console.log("4. Age of Pedro: 26:", getAgeOfPerson(lotsOfPeople, "Pedro"));
+        // console.log("4. Age of Ezequiel: 57:", getAgeOfPerson(lotsOfPeople, "Ezequiel"));
+        // console.log("4. Age of Michael: 0:", getAgeOfPerson(lotsOfPeople, "Michael"));
+
+
+        // 5. Create a function that take an array of people, a name, and a age and will add a new person into the lotsOfPeople array.
+        // Use the lotsOfPeople array from the provided people.js file.
+        function addPerson(lotsOfPeople, name, age) {
+            if (name !== undefined && age !== undefined) {
+                lotsOfPeople.push([name, age]);
+            }
+        }
+        // addPerson(lotsOfPeople, "Pedro", 33);
+        // console.log('5. Add person: [["Ezequiel", 57], ["Pedro", 33]]:', lotsOfPeople.slice(-2));
+        // addPerson(lotsOfPeople, "Dirk", 25);
+        // console.log('5. Add person: [["Ezequiel", 57], ["Pedro", 33], ["Dirk", 25]]:', lotsOfPeople.slice(-3));
+        // addPerson(lotsOfPeople);  // Left off second argument on purpose!
+        // console.log('5. Add person: [["Ezequiel", 57], ["Pedro", 33], ["Dirk", 25]]:', lotsOfPeople.slice(-3));
+
+
+        // 6. Create a function that takes two arguments: an array of numbers and a multiplier.
+        // The function should update the array with each number multiplied by the multiplier parameter.
+        // Ex : [2,5,1,10] with multiplier 2 should update the array to [4,10,2,20]
+        function multiplyArrayBy(testArr, multiplier) {
+            for (let i = 0; i < testArr.length; i++) {
+                if (multiplier) {
+                    testArr[i] = testArr[i] * multiplier;
+                }
+            }
+        }
+
+        // let testArr = [2, 5, 1, 10];
+        // multiplyArrayBy(testArr, 2);
+        // console.log("6. Multiply: [4, 10, 2, 20]:", testArr);
+
+        // testArr = [1, -2, 0];
+        // multiplyArrayBy(testArr, -3)
+        // console.log("6. Multiply: [-3, 6, 0]:", testArr);
+
+        // testArr = [90];
+        // multiplyArrayBy(testArr, 10)
+        // console.log("6. Multiply: [900]:", testArr);
+
+        // testArr = [5, -20, 49];
+        // multiplyArrayBy(testArr);  // Left off second argument
+        // console.log("6. Multiply: [5, -20, 49]:", testArr);
+
+        // testArr = [];
+        // multiplyArrayBy(testArr, 12);
+        // console.log("6. Multiply: []:", testArr);
+
+
+        // 7. Create a function that will sort an array of people so the people are ordered by their age in numerical order.
+        // Use the lotsOfPeople array from the provided people.js file.
+        // Ex: [["Carolina", 28], ["Alex", 18], ["Georges", 31], ["Betty", 64]]
+        // becomes
+        // [["Alex", 18], ["Carolina", 28], ["Georges", 31], ["Betty", 64]]
+        //store min value in separate array and splice the lowest element
+function listPeopleByAge(lotsOfPeople) {
+    const listPeople = [];
+    while (lotsOfPeople.length !== 0) {
+        let minAge = null;
+        let min = Infinity
+        for (let i = 0; i < lotsOfPeople.length; i++) {
+            if (lotsOfPeople[i][1] < min) {
+                min = lotsOfPeople[i][1] //value of 10
+                // console.log(min)
+                // console.log(i);
+                minAge = i;
+            }    
+        }
+        let savedData = lotsOfPeople.splice(minAge, 1);
+        listPeople.push(savedData);
+    }
+        console.log(listPeople);
+}
+listPeopleByAge(lotsOfPeople);
+    </script>
+</body>
+</html>

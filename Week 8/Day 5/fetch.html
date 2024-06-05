@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FETCH</title>
+</head>
+
+<body>
+    <div class="stuff"></div>
+    <div class="stuff"></div>
+    <div class="stuff"></div>
+    <script>
+        const stuffElem = document.querySelectorAll(".stuff");
+
+        const xhr = new XMLHttpRequest
+        xhr.open("get", "https://ddragon.leagueoflegends.com/cdn/14.8.1/data/en_US/champion.json");
+        xhr.addEventListener("load", () => {
+            const jsonObj = JSON.parse(xhr.responseText);
+            const newNames = Object.values(jsonObj.data) //Pull out values from jsonObj as an array
+                .map(c => c.name) // Pull out only the names from each object
+                .slice(0, 10)
+                .join("|");
+            stuffElem[0].innerHTML = newNames;
+        });
+        xhr.send();
+
+        fetch("https://ddragon.leagueoflegends.com/cdn/14.8.1/data/en_US/champion.json")
+            .then(res => res.json()) // res is a Response object
+            .then(res => {
+                const lolObj = Object.values(res.data) //Pull out values from jsonObj as an array
+                    .map(c => c.name) // Pull out only the names from each object
+                    .slice(0, 10)
+                    .join("|");
+                stuffElem[1].innerHTML = lolObj;
+            })
+            .catch(error => console.log("OOPS!", error));
+
+        async function doThatThing() {
+            let one = await fetch("https://ddragon.leagueoflegends.com/cdn/14.8.1/data/en_US/champion.json")
+            let two = await one.json();
+            const lolObj = Object.values(two.data) //Pull out values from jsonObj as an array
+                .map(c => c.name) // Pull out only the names from each object
+                .slice(0, 10)
+                .join("|");
+
+            stuffElem[2].innerHTML = lolObj;
+        }
+
+        doThatThing();
+
+
+    </script>
+</body>
+
+</html>

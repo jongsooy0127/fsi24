@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callbacks and Promises</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .square {
+            width: 10rem;
+            height: 10rem;
+            background-color: cornflowerblue;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="square"></div>
+    <button>Undo</button>
+    <script>
+        let blueSquare = document.querySelector(".square");
+        let undoButton = document.querySelector("button")
+
+        blueSquare.addEventListener("click", squareClickCallback);
+
+        function squareClickCallback() {
+            console.log("Click");
+            blueSquare.style.backgroundColor = "goldenrod";
+            undoButton.addEventListener("click", () => {
+                setTimeout(() => {
+                    blueSquare.style.backgroundColor = "cornflowerblue";
+                }, 2000);
+            });
+        };
+
+        bluesquare.backgroundColor = "firebrick";
+
+        const waitACoupleSeconds = new Promise((res, rej) => {
+            setTimeout(() => {
+                console.log("TIMEOUT!");
+                res("DONE!");
+            }, 2000); // Minimum delay of 2000 milliseconds
+        })
+
+        waitACoupleSeconds.then(result => {
+            console.log(result);
+        })
+
+        // //Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop
+        // const seconds = new Date().getTime() / 1000;
+
+        // setTimeout(() => {
+        //     // prints out "2", meaning that the callback is not called immediately after 500 milliseconds.
+        //     console.log(`Ran after ${new Date().getTime() / 1000 - seconds} seconds`);
+        // }, 500);
+
+        // while (true) {
+        //     if (new Date().getTime() / 1000 - seconds >= 2) {
+        //         console.log("Good, looped for 2 seconds");
+        //         break;
+        //     }
+        // }
+    </script>
+</body>
+
+</html>

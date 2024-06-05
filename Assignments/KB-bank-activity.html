@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KB BANK ACTIVITY</title>
+</head>
+
+<body>
+    <script>
+        //         You are are in the waiting room for KB Bank so that you can get a new debit card.You been waiting for the last 2 hours and now you have to use bathroom! Fancy buildings like this one usually have keypad locks on their bathrooms, so you look for the information desk and ask for the code.The well - intention receptionist profusely apologies while she hands you a document.
+
+        // "In order to improve security," the document you find says, "bathroom codes will no longer be written down. Instead, please memorize and follow the procedure below to access the bathrooms."
+
+        // The document goes on to explain that each button to be pressed can be found by starting on the previous button and moving to adjacent buttons on the keypad: U moves up, D moves down, L moves left, and R moves right.Each line of instructions corresponds to one button, starting at the previous button(or, for the first line, the "5" button); press whatever button you're on at the end of each line. If a move doesn't lead to a button, ignore it.
+
+        // You can't hold it much longer, so you decide to figure out the code as you walk towards the bathroom. You picture a keypad like this:
+
+        //         1 2 3
+        //         4 5 6
+        //         7 8 9
+
+        // For example, suppose your instructions are:
+
+        //         ULL
+        //         RRDDD
+        //         LURDL
+        //         UUUUD
+
+        // You start at "5" and move up(to "2"), left(to "1"), and left(you can't, and stay on "1"), so the first button is 1.
+        // Starting from the previous button("1"), you move right twice(to "3") and then down three times(stopping at "9" after two moves and ignoring the third), ending up with 9.
+        // Continuing from "9", you move left, up, right, down, and left, ending with 8.
+        // Finally, you move up four times(stopping at "2"), then down once, ending with 5.
+        // So, in this example, the bathroom code is: 1985.
+
+        // Your puzzle input is the instructions from the document you were given at the information desk.What is the bathroom code, given the assumed keypad above ?
+
+
+        //             BONUS : You finally arrive at the bathroom(it's a several minute walk from the lobby so visitors can behold the many fancy conference rooms and water coolers on this floor) and go to punch in the code. Much to your bladder's dismay, the keypad is not at all like you imagined it.Instead, you are confronted with the result of hundreds of man - hours of bathroom - keypad - design meetings:
+
+        //         1
+        //         2 3 4
+        //         5 6 7 8 9
+        //   A B C
+        //         D
+
+        // You still start at "5" and stop when you're at an edge, but given the same example instructions as above, the outcome is very different:
+
+        // You start at "5" and don't move at all (up and left are both edges), ending at 5.
+        // Continuing from "5", you move right twice and down three times(through "6", "7", "B", "D", "D"), ending at D.
+        //             Then, from "D", you move five more times(through "D", "B", "C", "C", "B"), ending at B.
+        //                 Finally, after five more moves, you end at 3.
+        //         So, given the actual keypad layout, the code would be: 5DB3.
+
+        // Using the same instructions in your puzzle input, what is the correct bathroom code ?
+
+
+        //             The document you recieved from the information desk contains the following:
+
+        let dataStr = `LRRLLLRDRURUDLRDDURULRULLDLRRLRLDULUDDDDLLRRLDUUDULDRURRLDULRRULDLRDUDLRLLLULDUURRRRURURULURRULRURDLULURDRDURDRLRRUUDRULLLLLDRULDDLLRDLURRLDUURDLRLUDLDUDLURLRLDRLUDUULRRRUUULLRDURUDRUDRDRLLDLDDDLDLRRULDUUDULRUDDRLLURDDRLDDUDLLLLULRDDUDDUUULRULUULRLLDULUDLLLLURRLDLUDLDDLDRLRRDRDUDDDLLLLLRRLLRLUDLULLDLDDRRUDDRLRDDURRDULLLURLRDLRRLRDLDURLDDULLLDRRURDULUDUDLLLDDDLLRLDDDLLRRLLURUULULDDDUDULUUURRUUDLDULULDRDDLURURDLDLULDUDUDDDDD
+                RUURUDRDUULRDDLRLLLULLDDUDRDURDLRUULLLLUDUDRRUDUULRRUUDDURDDDLLLLRRUURULULLUDDLRDUDULRURRDRDLDLDUULUULUDDLUDRLULRUDRDDDLRRUUDRRLULUULDULDDLRLURDRLURRRRULDDRLDLLLRULLDURRLUDULDRDUDRLRLULRURDDRLUDLRURDDRDULUDLDLLLDRLRUDLLLLLDUDRDUURUDDUDLDLDUDLLDLRRDLULLURLDDUDDRDUDLDDUULDRLURRDLDLLUUDLDLURRLDRDDLLDLRLULUDRDLLLDRLRLLLDRUULUDLLURDLLUURUDURDDRDRDDUDDRRLLUULRRDRULRURRULLDDDUDULDDRULRLDURLUDULDLDDDLRULLULULUDLDDRDLRDRDLDULRRLRLRLLLLLDDDRDDULRDULRRLDLUDDDDLUDRLLDLURDLRDLDRDRDURRDUDULLLDLUDLDRLRRDDDRRLRLLULDRLRLLLLDUUURDLLULLUDDRLULRDLDLDURRRUURDUDRDLLLLLLDDDURLDULDRLLDUDRULRRDLDUDRLLUUUDULURRUR
+                URRRLRLLDDDRRLDLDLUDRDRDLDUDDDLDRRDRLDULRRDRRDUDRRUUDUUUDLLUURLRDRRURRRRUDRLLLLRRDULRDDRUDLRLUDURRLRLDDRRLUULURLURURUDRULDUUDLULUURRRDDLRDLUDRDLDDDLRUDURRLLRDDRDRLRLLRLRUUDRRLDLUDRURUULDUURDRUULDLLDRDLRDUUDLRLRRLUDRRUULRDDRDLDDULRRRURLRDDRLLLRDRLURDLDRUULDRRRLURURUUUULULRURULRLDDDDLULRLRULDUDDULRUULRRRRRLRLRUDDURLDRRDDULLUULLDLUDDDUURLRRLDULUUDDULDDUULLLRUDLLLRDDDLUUURLDUDRLLLDRRLDDLUDLLDLRRRLDDRUULULUURDDLUR
+                UULDRLUULURDRLDULURLUDULDRRDULULUDLLDURRRURDRLRLLRLDDLURRDLUUDLULRDULDRDLULULULDDLURULLULUDDRRULULULRDULRUURRRUDLRLURDRURDRRUDLDDUURDUUDLULDUDDLUUURURLRRDLULURDURRRURURDUURDRRURRDDULRULRRDRRDRUUUUULRLUUUDUUULLRRDRDULRDDULDRRULRLDLLULUUULUUDRDUUUDLLULDDRRDULUURRDUULLUUDRLLDUDLLLURURLUDDLRURRDRLDDURLDLLUURLDUURULLLRURURLULLLUURUUULLDLRDLUDDRRDDUUDLRURDDDRURUURURRRDLUDRLUULDUDLRUUDRLDRRDLDLDLRUDDDDRRDLDDDLLDLULLRUDDUDDDLDDUURLDUDLRDRURULDULULUDRRDLLRURDULDDRRDLUURUUULULRURDUUDLULLURUDDRLDDUDURRDURRUURLDLLDDUUDLLUURDRULLRRUUURRLLDRRDLURRURDULDDDDRDD
+                LLRUDRUUDUDLRDRDRRLRDRRUDRDURURRLDDDDLRDURDLRRUDRLLRDDUULRULURRRLRULDUURLRURLRLDUDLLDULULDUUURLRURUDDDDRDDLLURDLDRRUDRLDULLRULULLRURRLLURDLLLRRRRDRULRUDUDUDULUURUUURDDLDRDRUUURLDRULDUDULRLRLULLDURRRRURRRDRULULUDLULDDRLRRULLDURUDDUULRUUURDRRLULRRDLDUDURUUUUUURRUUULURDUUDLLUURDLULUDDLUUULLDURLDRRDDLRRRDRLLDRRLUDRLLLDRUULDUDRDDRDRRRLUDUDRRRLDRLRURDLRULRDUUDRRLLRLUUUUURRURLURDRRUURDRRLULUDULRLLURDLLULDDDLRDULLLUDRLURDDLRURLLRDRDULULDDRDDLDDRUUURDUUUDURRLRDUDLRRLRRRDUULDRDUDRLDLRULDL`
+        function getCode(str) {
+            const lines = str.trim().split("\n").map(lines => lines.trim());
+            console.log(lines);
+
+            function Key(up, right, down, left) {
+                config(up, right, down, left); {
+                    this.U = up;
+                    this.R = right;
+                    this.D = down;
+                    this.L = left;
+                }
+            }
+
+
+            const allKeys = [];
+            for (let i = 0; i < 9; i++) {
+                allKeys.push(new Key());
+            }
+            // const allKeys = new Array(9).fill(null).map(() => new Key());
+            allKeys[0].config(null, allKeys[1], allKeys[3], null);
+            allKeys[1].config(null, allKeys[2], allKeys[4], allKeys[0]);
+            allKeys[2].config(null, null, allKeys[5], allKeys[1]);
+            allKeys[3].config(allKeys[0], allKeys[4], allKeys[6], null);
+            allKeys[4].config(allKeys[1], allKeys[5], allKeys[7], allKeys[3]);
+            allKeys[5].config(allKeys[2], null, allkeys[8], allKeys[4]);
+            allKeys[6].config(allKeys[3], allKeys[7], null, null);
+            allKeys[7].config(allKeys[4], allKeys[8], null, allKeys[6]);
+            allkeys[8].config(allKeys[5], null, null, allKeys[7]);
+
+            let combo = "";
+            let currPos = allKeys[4];
+            for (const line of lines) {
+                for (const letter of line) {
+                    const nextPos = currPos[letter];
+                    if (nextPos !== null) currPos = nextPos;
+                }
+                combo = allKeys.indexOf(currPos) + 1;
+            }
+            console.log("COMBO:", combo);
+        }
+
+        getCode(dataStr);
+    </script>
+</body>
+
+</html>

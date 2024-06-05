@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Online</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        width: 100vw;
+    }
+
+    div {
+        color: white;
+        margin: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    p {
+        color: black;
+        margin: 0.5rem;
+        margin-top: 4rem;
+    }
+
+    body {
+        font-family: sans-serif;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .username {
+        width: 13rem;
+        height: 1.5rem;
+        border-radius: 20px;
+        text-align: center;
+        font-size: 1.5rem;
+        padding: .2rem;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .chatbox {
+        position: relative;
+        height: 80vh;
+        width: 99vw;
+        border: solid 2px white;
+        margin-top: .5rem;
+        overflow-y: scroll;
+        background-color: lightskyblue;
+    }
+
+    .message-container {
+        display: flex;
+        justify-content: center;
+        margin-top: .5rem;
+    }
+
+    .send {
+        height: 36px;
+        width: 5rem;
+        margin-left: .4rem;
+        border-radius: 5px;
+        background-color: yellow;
+
+    }
+
+    .user-message {
+        background-color: yellow;
+        font-size: 1.5rem;
+        display: flex;
+        float: right;
+        /* width: min-content; */
+        max-width: 40%;
+        word-break: break-all;
+        color: black;
+        border-radius: 10px;
+        padding: .5rem;
+    }
+
+    .user-display-name {
+        display: flex;
+        justify-content: flex-end;
+        margin: 0.5rem;
+        margin-top: 4rem;
+        color: black;
+    }
+
+    .message {
+        background-color: white;
+        color: black;
+        padding: .5rem;
+        display: inline-block;
+        border-radius: 10px;
+        word-break: break-all;
+        width: auto;
+        max-width: 40%;
+    }
+
+    .message-box {
+        width: 90%;
+        height: 2rem;
+        font-size: 1.6rem;
+    }
+</style>
+
+<body>
+    <form>
+        <div class="container">
+            <input type="text" placeholder="Input your name" class="username">
+        </div>
+        <div class="chatbox">
+            <p class="placeholder"></p>
+        </div>
+        <div class="message-container">
+            <input type="text" class="message-box">
+            <input type="button" class="send" value="Send">
+        </div>
+    </form>
+    <button id="getMore">GET MORE</button>
+
+    <script>
+        let username = document.querySelector('.username');
+        let chatbox = document.querySelector(".chatbox")
+        let message = document.querySelector(".message-box");
+        const sendButton = document.querySelector(".send");
+        const placeholder = document.querySelector(".placeholder");
+        const getMoreElem = document.querySelector("#getMore");
+
+        //SEND MESSAGE
+
+        sendButton.addEventListener("click", (evt) => {
+            // console.log(evt);
+            if (username.value === "") {
+                alert("Please input a username");
+            } else {
+                let createdDiv = document.createElement("div");
+                let userDisplayName = document.createElement("p")
+                createdDiv.className = "user-message";
+                userDisplayName.className = "user-display-name"
+
+                const userMessage = {
+                    "username": username.value,
+                    "message": message.value
+                }
+
+                fetch("/sendchat", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    body: JSON.stringify({
+                        "username": username.value,
+                        "message": message.value
+                    })
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        userDisplayName.innerHTML = username.value;
+                        createdDiv.innerHTML = message.value;
+                        let br = document.createElement("br");
+                        placeholder.before(userDisplayName);
+                        placeholder.before(br);
+                        placeholder.before(createdDiv);
+                        placeholder.before(br);
+                        message.value = "";
+                        scrollDown();
+                    })
+            }
+        })
+
+        message.addEventListener("keypress", (evt) => {
+            if (evt.key === "Enter") {
+                if (username.value === "") {
+                    alert("Please input a username");
+                } else {
+                    let createdDiv = document.createElement("div");
+                    let userDisplayName = document.createElement("p")
+                    createdDiv.className = "user-message";
+                    userDisplayName.className = "user-display-name"
+
+                    const userMessage = {
+                        "username": username.value,
+                        "message": message.value
+                    }
+
+                    fetch("/sendchat", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': "application/json"
+                        },
+                        body: JSON.stringify({
+                            "username": username.value,
+                            "message": message.value
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(res => {
+                            console.log(res);
+                            userDisplayName.innerHTML = username.value;
+                            createdDiv.innerHTML = message.value;
+                            let br = document.createElement("br");
+                            placeholder.before(userDisplayName);
+                            placeholder.before(br);
+                            placeholder.before(createdDiv);
+                            placeholder.before(br);
+                            message.value = "";
+                            scrollDown();
+                        })
+                }
+            }
+        })
+
+        const getMessages = () => {
+            //RECEIVE MESSAGE
+            fetch("/getchat", {
+                method: "GET"
+            })
+                .then(res => res.json())
+                .then(res => {
+                    chatbox.innerHTML = '<p class="placeholder"></p>';
+                    const placeholder = document.querySelector(".placeholder");
+                    for (let i = 0; i < res.length; i++) {
+                        if (res[i].username === username.value) {
+                            const createOtherUsername = document.createElement("p");
+                            const createOtherMessage = document.createElement("div");
+                            createOtherUsername.innerHTML = res[i].username;
+                            createOtherMessage.innerHTML = res[i].message;
+                            createOtherMessage.className = "user-message";
+                            createOtherUsername.className = "user-display-name";
+                            placeholder.before(createOtherUsername);
+                            placeholder.before(createOtherMessage);
+                        } else {
+                            const createOtherUsername = document.createElement("p");
+                            const createOtherMessage = document.createElement("div");
+                            createOtherUsername.innerHTML = res[i].username;
+                            createOtherMessage.innerHTML = res[i].message;
+                            createOtherMessage.className = "message";
+                            placeholder.before(createOtherUsername);
+                            placeholder.before(createOtherMessage);
+                        }
+                    }
+                    scrollDown();
+                    // setTimeout(getMessages, 3000);
+                });
+        }
+
+        getMoreElem.addEventListener("click", evt => {
+            fetch("/getchat")
+                .then(res => res.json())
+                .then(res => {
+                    chatbox.innerHTML = '<p class="placeholder"></p>';
+                    const placeholder = document.querySelector(".placeholder");
+                    for (let i = 0; i < res.length; i++) {
+                        if (res[i].username === username.value) {
+                            const createOtherUsername = document.createElement("p");
+                            const createOtherMessage = document.createElement("div");
+                            createOtherUsername.innerHTML = res[i].username;
+                            createOtherMessage.innerHTML = res[i].message;
+                            createOtherMessage.className = "user-message";
+                            createOtherUsername.className = "user-display-name";
+                            placeholder.before(createOtherUsername);
+                            placeholder.before(createOtherMessage);
+                        } else {
+                            const createOtherUsername = document.createElement("p");
+                            const createOtherMessage = document.createElement("div");
+                            createOtherUsername.innerHTML = res[i].username;
+                            createOtherMessage.innerHTML = res[i].message;
+                            createOtherMessage.className = "message";
+                            placeholder.before(createOtherUsername);
+                            placeholder.before(createOtherMessage);
+                        }
+                    }
+                })
+        })
+
+        getMessages();
+
+        function scrollDown() {
+            chatbox.scrollTo(0, 10000000);
+        }
+    </script>
+</body>
+
+</html>

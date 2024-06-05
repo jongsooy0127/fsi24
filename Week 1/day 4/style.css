@@ -1,0 +1,27 @@
+h1 {
+    color: green;
+}
+
+h2 {
+    color: magenta;
+}
+p {
+    color: white;
+    background-color: black;
+}
+button {
+    color: red;
+    background-color: pink;
+}
+
+h3 {
+    text-transform: uppercase;
+    font-family: monospace;
+    text-align: center;
+    font-weight: 100px;
+    font-size: 40px;
+    letter-spacing: 20px;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: purple;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ternary</title>
+</head>
+<body>
+    <script>
+        const num = 8;
+
+        if (num < 10) {
+            console.log("1. LESS than 10");
+        } else {
+            console.log("1. MORE THAN 10");
+        }
+
+        if (num < 10) console.log("2. LESS than 10");
+        else console.log("2. MORE than 10");
+
+        num < 10 ? console.log("3. LESS than 10") : console.log("3. MORE than 10");
+
+        num < 10
+            ? num < 5
+                ? console.log("4. LESS than 5")
+                : console.log("4. LESS than 10")
+            : num < 20 
+                ? console.log("4. MORE than 20")
+                : console.log("4. MORE than 20")
+
+        console.log("5. " + (num < 10 ? "LESS than 10" : "MORE than 10"));
+    </script>
+</body>
+</html>

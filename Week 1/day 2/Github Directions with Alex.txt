@@ -1,0 +1,35 @@
+SSH ENCRYPTION: ED25519
+
+
+Generate new SSH key: (all in cmd)
+ssh-keygen -t -ed25519 -C "youremail@email.com" (-t = type) (-C = comment) (*-C "youremail@email.com" not required)
+
+Your public key has been saved in:  C:\Users\Jong Soo Yoon\.ssh\{name for ssh}
+
+
+Prints out content of the file:
+type "C:\Users\Jong Soo Yoon\.ssh\{public key name}.pub" (to view public key) (wrap in quotation marks if there are spaces)
+
+To test key:
+ssh -T git@github.com (for default names)
+ssh -i "C:\\Users\Jong Soo Yoon\.ssh\{custom name}" -T git@github.com (for custom names)
+
+To setup SSH config file:
+Host github.com
+    IdentityFile    ~/.ssh/{custom name}
+
+TO COMMIT:
+1. Go to the folder in command prompt
+2. git init
+3. git config user.name	(to set: input name)
+4. git config user.email (to set: input email)
+5. git status (gives status of what folders will be committed) (gives green if it is in staging)
+6. (if folders are red:) git add .
+7. git commit -m "{comment}"
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jetson Family Detail</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Search for your favorite Jetson character</h1>
+    <div>
+        <form id="jetsonForm">
+            <select id="selectElem">Choose a character
+                {% for char in jetson_list %}
+                <option>
+                    {{ char["name"] }}
+                </option>
+                {% endfor %}
+            </select>
+            <button>Search</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    let selectElem = document.querySelector("#selectElem");
+
+    document.querySelector("#jetsonForm").addEventListener("submit", evt => {
+        // evt.preventDefault()
+        // const newRoute = "/character/" + selectElem.value
+        // window.location.href = newRoute
+
+        evt.target.action = "/character/" + selectElem.value
+    })
+</script>
+
+</html>

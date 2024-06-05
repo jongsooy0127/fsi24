@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Keyboard</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <label for="input">Something:
+        <input type="text" name="input" id="input" placeholder="Type here....">
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <input id="pass" type="password" name="pw" id="pw">
+            <input id="confirm" type="password" name="pw" id="pw">
+            <div style="font-size: 0.7rem; color: green; visibility: hidden;">
+                Password Match!
+            </div>
+        </div>
+    </label>
+
+    <script>
+        const inputElem = document.querySelector("input");
+        inputElem.addEventListener("input", () => { //every input = +1
+            console.log("INPUT!")
+        })
+
+        inputElem.addEventListener("change", () => { //once enter or click away change fires
+            console.log("CHANGE!")
+        })
+
+        let passElem = document.querySelector("#pass");
+        let confirmElem = document.querySelector("#confirm");
+        let matchElem = document.querySelector("#confirm + div");
+
+        function checkPasswords () {
+            if (passElem.value === confirmElem.value) {
+                matchElem.style.visibility = "visible";
+            }
+            else {
+                matchElem.style.visibility = "hidden";
+            }
+        }
+        
+        passElem.addEventListener("input", checkPasswords());
+        confirmElem.addEventListener("input", checkPasswords());
+        
+    </script>
+</body>
+</html>

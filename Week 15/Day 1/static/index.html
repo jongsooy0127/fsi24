@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTING</title>
+</head>
+
+<body>
+    <form id="form">
+        <input type="text" name="id" id="id" placeholder="id">
+        <input type="password" name="pw" id="pw" placeholder="pw">
+        <button id="submit">Submit</button>
+    </form>
+
+    <script>
+        let idElem = document.querySelector("#id")
+        let pwElem = document.querySelector("#pw")
+
+        document.querySelector("form").addEventListener("submit", evt => {
+            evt.preventDefault();
+
+            fetch("/randomtest", {
+                method: "POST",
+                headers: {
+                    // "Content-Type": "application/json"
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `id=${idElem.value}&pw=${pwElem.value}`
+                // body: JSON.stringify({
+                // "id": idElem.value,
+                //             "pw": pwElem.value
+                //         })
+            })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                })
+        })
+    </script>
+</body>
+
+</html>

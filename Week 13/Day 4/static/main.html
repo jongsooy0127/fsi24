@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page - FBI</title>
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <fieldset>
+        <legend>20 Most Wanted List: </legend>
+        <form id="criminalForm">
+            <div>
+                <label>Select a criminal</label>
+                <select id="criminalDropList">
+
+                </select>
+            </div>
+            <button>Send</button>
+        </form>
+        <div id="criminalResult"></div>
+    </fieldset>
+    <div id="photoContainer"></div>
+</body>
+
+<script>
+    let selectList = document.querySelector("#criminalDropList");
+    let photoContainer = document.querySelector("#photoContainer");
+
+    let all_criminals = null;
+
+    fetch("/highbounty")
+        .then(res => res.json())
+        .then(res => {
+            all_criminals = res;
+            console.log(res)
+            for (let i = 0; i < res.length; i++) {
+                let createOption = document.createElement("option");
+                createOption.innerHTML = res[i].title
+                selectList.append(createOption)
+            }
+        })
+
+    document.querySelector("#criminalForm").addEventListener("submit", evt => {
+        evt.preventDefault()
+
+        // fetch("/highbounty")
+        //     .then(res => res.json())
+        //     .then(res => {
+
+        //         for (criminal of res) {
+        //             if (selectList.value == criminal.title) {
+        //                 document.querySelector("#criminalResult").innerHTML = "REWARD: " + criminal.reward_text;
+        //                 for (let i = 0; i < criminal.images.length; i++) {
+        //                     criminalImg = document.createElement("img")
+        //                     criminalImg.src = criminal.images[i].thumb
+        //                     photoContainer.append(criminalImg)
+        //                 }
+        //             }
+        //         }
+        //     })
+        for (criminal of all_criminals) {
+            if (selectList.value == criminal.title) {
+                document.querySelector("#criminalResult").innerHTML = "REWARD: " + criminal.reward_text;
+                for (let i = 0; i < criminal.images.length; i++) {
+                    criminalImg = document.createElement("img")
+                    criminalImg.src = criminal.images[i].thumb
+                    photoContainer.append(criminalImg)
+                }
+            }
+        }
+    })
+</script>
+
+</html>

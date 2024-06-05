@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity</title>
+</head>
+<body>
+    <script src="/activity-instructions.js  "></script>
+    <script>
+        // At the end of these directions is a data structure containing
+        // the text downloaded from KOSIS (Korean Statistical Information
+        // Service) of the "Average Surveyed Wage by Production Job Family
+        // of Manufacturing Category (Daily Wage)" of years 1992 through 2012.
+
+        //TRIM AND SPLIT 
+
+        //CHANGE THE DATA TO FIT THE PROCESS BETTER ("GOLDSMITH")
+        let allData = wageData.trim().split("\n");
+        let dataArr = [];
+        allData.forEach(data => {
+            dataArr.push(data.split(","));
+        });
+
+        for (let i = 0; i < dataArr.length; i++) {
+            for (let j = 1; j < dataArr[i].length; j++) {
+                dataArr[i][j] = parseInt(dataArr[i][j]);
+                if (isNaN(dataArr[i][j])) {
+                    dataArr[i][j] = 0;
+                }
+            }
+        }
+
+        console.log(dataArr);
+
+
+        
+
+        // 1. Which year had the highest total average reported wages?
+        let avgMax = -Infinity;
+        for (let i = 0; i < dataArr.length; i++){
+            if (dataArr[i][0] === '"Total Average"') {
+                for (let j = 0; j < dataArr[i].length; j++) {
+                    if (dataArr[i][j] > avgMax) {
+                        avgMax = dataArr[i][j];
+                    }
+                }
+            }
+        }
+
+        console.log(avgMax)
+
+        // 2. Which consecutive years had the highest change in Total Average?
+        let avgChange = 0;
+        for (let i = 0; i < dataArr.length; i++) {
+            if (dataArr[i][0] === '"Total Average') {
+                for (let j = 1; j < dataArr[i].length; j++) {
+                    if ((dataArr[i][j] - dataArr[i][j-1]) > avgChange) {
+                        avgChange = dataArr[0][j];
+                    }
+                }
+            }
+        }
+
+        console.log(avgChange);
+
+        // 3. Which Job Family had the highest wage in 1992? How about 2012?
+
+        // 4. What was the highest ever reported wage and for what Job
+        //     Family and year?
+
+        // 5. How much did a 'Computer S/W Engineer' in Manufacturing make
+        //     in 2012? What was the rate of wage increase since 2000?
+
+        // 6. When was the first year that the 'Computer S/W Engineer'
+        //     average a higher wage than a 'Head of Working Group'?
+
+        // 7. For how many years are there wage reports for a 'Data Entry
+        //     Processor'?
+
+        // 8. Can you create list of only the jobs that have 'Cutting' in the
+        //     Job Family and their respective wages for only 2009 and 2010.
+
+        // The following is the data to use. Note that the first row has the
+        // column headers and is not actual data. You'll have to parse the
+        // string appropriately into a data structure that will make your
+        // work easier to accomplish. There are also some values you might
+        // have to reformat or missing data you'll have to handle in a way
+        // that works for how you want to work with the data.
+    </script>
+</body>
+</html>

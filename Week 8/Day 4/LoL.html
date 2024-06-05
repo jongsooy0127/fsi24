@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Champpions</title>
+</head>
+
+<body>
+    <script>
+        const xhrChamps = new XMLHttpRequest();
+        xhrChamps.open("GET", "https://ddragon.leagueoflegends.com/cdn/14.8.1/data/en_US/champion.json");
+        xhrChamps.addEventListener("load", () => {
+            const respObj = JSON.parse(xhrChamps.responseText);
+            const champArr = Object.values(respObj.data);
+            console.log("CHAMPS:", champArr);
+        })
+        xhrChamps.send();
+    </script>
+</body>
+
+</html>

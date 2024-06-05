@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktail Exercise</title>
+</head>
+
+<body>
+    <fieldset>
+        <legend>Cocktail Name Search: </legend>
+        <form id="userCocktailSearch">
+            <div>
+                <label>
+                    Please enter a cocktail drink:
+                    <input id="userCocktailInput">
+                </label>
+            </div>
+            <button>Send</button>
+        </form>
+        <div id="userCocktailResult"></div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Cocktail Ingredient Search: </legend>
+        <form id="userIngredientSearch">
+            <div>
+                <label>
+                    Please enter a cocktail ingredient:
+                    <input id="userIngredientInput">
+                </label>
+            </div>
+            <button>Send</button>
+        </form>
+        <div id="userIngredientResult"></div>
+    </fieldset>
+</body>
+
+<script>
+    userCocktailInputElem = document.querySelector("#userCocktailInput");
+    userIngredientInputElem = document.querySelector("#userIngredientInput");
+
+    document.querySelector("#userCocktailSearch").addEventListener("submit", evt => {
+        evt.preventDefault();
+
+        fetch("/search?s=" + userCocktailInputElem.value)
+            .then(res => res.json())
+            .then(res => {
+                createCocktailElement(res, "#userCocktailResult");
+            })
+    })
+
+    document.querySelector("#userIngredientSearch").addEventListener("submit", evt => {
+        evt.preventDefault();
+
+        fetch("/ingredients?s=" + userIngredientInputElem.value)
+            .then(res => res.json())
+            .then(res => {
+                createCocktailElement(res, "#userIngredientResult");
+            })
+    })
+
+    function createCocktailElement(object, resultID) {
+        for (item of object) {
+            let aTag = document.createElement("a");
+            let pTag = document.createElement("p");
+            aTag.href = "/details/" + item.id;
+            aTag.textContent = "Item: " + item.id;
+            pTag.textContent = "Name: " + item.name;
+
+            document.querySelector(resultID).appendChild(aTag);
+            document.querySelector(resultID).appendChild(pTag);
+        }
+    }
+</script>
+
+</html>

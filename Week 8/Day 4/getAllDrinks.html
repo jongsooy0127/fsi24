@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=|, initial-scale=1.0">
+    <title>Get Your Cocktail!</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+    </style>
+    <link rel="stylesheet" href="/combobox.css">
+</head>
+
+<body>
+    <div>
+        <input type="text">
+        <button>Submit</button>
+    </div>
+    <div class="matches"></div>
+    <div class="info"></div>
+    <script src="/combobox.js"></script>
+    <script>
+        //====================Storing Element Object===========================
+        const objectElem = {
+            inputElem: document.querySelector("input"),
+            buttonElem: document.querySelector("button"),
+            infoElem: document.querySelector(".info"),
+            matchesElem: document.querySelector(".matches"),
+        }
+
+        //===================Connecting to API=================================
+        const cocktailXHR = new XMLHttpRequest();
+        cocktailXHR.open("GET", "http://192.168.3.14:3000/getAllDrinks");
+        cocktailXHR.addEventListener("load", () => {
+            primaryObj = JSON.parse(cocktailXHR.responseText);
+            console.log("DRINKS", primaryObj);
+            activateInput(primaryObj, objectElem, matchCocktail);
+        });
+        cocktailXHR.send();
+
+        //===========================Changing text area=============================
+
+        function matchCocktail(cocktailInfo, text) {
+            console.log(cocktailInfo.strDrink)
+            let textBox = `<div>Name: ${cocktailInfo.strDrink}</div>
+            <div>Category: ${cocktailInfo.strCategory}</div>
+            <div>Is alcoholic?: ${cocktailInfo.strAlcoholic}</div>`
+            text.innerHTML = textBox;
+        }
+    </script>
+</body>
+
+</html>

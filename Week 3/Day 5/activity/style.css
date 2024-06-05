@@ -1,0 +1,42 @@
+
+.firstblock {
+    height: 100vh;
+    width: 100%;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    background-image: url("./assets/ocean.jpg");
+    background-size: cover;
+}
+
+.firsthead {
+    width: 40%;
+    text-align: center; 
+}
+
+.tex {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.foot {
+    height: 50vh;
+    width: auto;
+    background-image: url("./assets/ocean.jpg");
+    background-size: cover;
+}
+
+.footer {
+    margin-top: 4em;
+    list-style-type: none;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.footer2 {
+    margin-left: 80px;
+    color: gray;
+}

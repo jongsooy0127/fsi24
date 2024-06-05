@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jetson Quiz</title>
+</head>
+
+<body>
+    <h1>Jetson Quiz</h1>
+    <h2>{{question["question"]}}</h2>
+    {% for i in range(4): %}
+
+    <button>{{question["guesses"][i]}}</button><br><br>
+    {% endfor %}
+    <!-- {% if question["guesses"] == question["answer"]%}
+    <h3>You got it!</h3>
+    {% endif %} -->
+</body>
+<script>
+    const buttons = document.querySelectorAll("button")
+    const qid = {{ randint }};
+
+    buttons.forEach(btn => {
+        btn.addEventListener("click", evt => {
+            fetch("/jetsonanswer",
+                {
+                    method: "post",
+                    headers: { "Content-type": "application/json" },
+                    body: JSON.stringify({
+                        id: qid,
+                        guess: evt.target.innerHTML
+                    })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.result === "Correct!") {
+                        console.log(res.result)
+                        console.log("Yes")
+                    } else {
+                        console.log("No")
+                    }
+                })
+        })
+    });
+
+</script>
+
+</html>

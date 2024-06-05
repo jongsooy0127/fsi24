@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Search</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            margin-top: 3rem;
+            /* display: flex;
+            align-items: center;
+            flex-direction: row; */
+        }
+
+        input {
+            width: 50rem;
+            height: 3rem;
+            font-size: 1rem;
+            border-radius: 10px;
+        }
+
+        button {
+            height: 54px;
+            width: 5rem;
+            margin-left: .2rem;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .container-1 {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .container-2 {
+            margin-top: 2rem;
+            flex-direction: column;
+            width: 900px;
+            height: 10rem;
+            overflow-y: scroll;
+            display: none;
+        }
+
+        .college-list {
+            font-size: 1.5rem;
+            display: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-1">
+        <input type="input" name="search" id="search" placeholder="Type in your university here">
+        <button>Search</button>
+    </div>
+    <div class="container-2">
+
+    </div>
+
+
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+    <script>
+        // Create a combo box input(https://en.wikipedia.org/wiki/Combo_box) using JS,
+        // without using third - party libraries.The combo box typically comprises of
+        // a text input and a list of matches.Also add a submit button beside the
+        // combo box input.There should be an area under the combo box to display more
+        // details about the combo box's matched selection.
+
+        // It will be used with a list of US universities pulled from a public API:
+        // (http://universities.hipolabs.com/search?country=United+States)
+
+        // The combo box should do the following:
+
+        // - Wait until the user types at least 3 characters before starting to search
+        // through schools to display matches.
+        // - Display matches under the editable text input.The list of matches should
+        // only appear when there are matches to show and should have a maximum
+        // display size and show a scrollbar if the list gets too large to show in
+        // your allotted space.
+        // - Clicking on a match in the list of matches will auto fill / replace the
+        // text in the text input with the match that was clicked.This should also
+        // remove or hide the list of matches.
+        // - Clicking on the submit button displays the school details in an area under
+        // the combo box.
+        // - Only connect to the API to get the list of schools once and hold the list
+        // locally, so you don't create too much network traffic and UI lag.
+        const input = document.querySelector("input");
+        const container = document.querySelector(".container-2");
+        const button = document.querySelector("button");
+        const allPara = document.querySelectorAll("p");
+
+        function getCollege() {
+            const xhrCollege = new XMLHttpRequest;
+            xhrCollege.open("GET", "http://universities.hipolabs.com/search?country=United+States");
+            xhrCollege.addEventListener("load", () => {
+                const collegeObj = JSON.parse(xhrCollege.responseText);
+                // console.log(collegeObj)
+                // console.log(collegeObj[1].name)
+                for (let i = 0; i < collegeObj.length; i++) {
+                    let createdDivs = document.createElement("div");
+                    container.appendChild(createdDivs);
+                    createdDivs.innerHTML = collegeObj[i].name;
+                    createdDivs.className = "college-list";
+                }
+                const collegeList = document.querySelectorAll(".college-list");
+
+                //- Wait until the user types at least 3 characters before starting to search
+                // through schools to display matches.
+
+                input.addEventListener("input", function (event) {
+                    console.log("Input Value:", input.value)
+                    for (let i = 0; i < collegeList.length; i++) {
+                        if (input.value.length >= 3) {
+                            allPara[0].innerHTML = "";
+                            allPara[1].innerHTML = "";
+                            allPara[2].innerHTML = "";
+
+                            // for (input.value.length = 3; input.value.length < 100; inputs.value.length++) {
+                            //     if (collegeList[i].innerHTML.toUpperCase().includes(input.value.toUpperCase())) {
+                            //         container.style.display = "block";
+                            //         collegeList[i].style.display = "block";
+                            //         console.log(input.value);
+                            // }
+                            // }
+                            // console.log("College List:", collegeList[i].innerHTML);
+                            if (collegeList[i].innerHTML.toUpperCase().includes(input.value.toUpperCase())) {
+                                container.style.display = "block";
+                                collegeList[i].style.display = "block";
+                            } else {
+                                collegeList[i].style.display = "none";
+                            }
+
+                        } else {
+                            container.style.display = "none";
+                            collegeList[i].style.display = "none";
+                        }
+                        collegeList[i].addEventListener("click", () => {
+                            input.value = collegeList[i].innerHTML;
+                        })
+                    }
+                    button.addEventListener("click", () => {
+                        let foundObj = collegeObj.find(school => school.name === input.value)
+                        if (foundObj !== undefined) {
+                            allPara[0].innerHTML = `Country: ${foundObj.country}`;
+                            allPara[1].innerHTML = `Domain: <a href=${foundObj.web_pages}>${foundObj.web_pages}</a>`;
+                            allPara[2].innerHTML = `Name: ${foundObj.name}`;
+                            container.style.display = "none";
+                        }
+                    })
+                })
+            })
+            xhrCollege.send()
+        }
+
+        getCollege();
+
+        // BONUS: Have the combo box support key presses as follows:
+        // - The user should be able to navigate the matches list with the up and down
+        // arrows.Show the current position in the list while navigating this way
+        // by highlighting the list position. (eg.special background color, font
+        // size, font weight, etc.)
+        // - Hitting the enter key while navigating the matches list will auto
+        // fill / replace the text in the text input with the highlighted match.This
+        // should also remove or hide the list of matches.
+        // - If the matches list is showing while the focus is on the text input, a down
+        // arrow key will allow the user to start navigating the matches list.
+        // - If the user hits the enter key while the focus is on the text input, the
+        // UI will behave as if the user submitted the text.
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{timer}}</h1>
+
+    <input type="number" id="hourInput" placeholder="0">
+    <input type="number" id="minuteInput" placeholder="0">
+    <input type="number" id="secondInput" placeholder="0">
+    <button id="startButton">Start</button>
+
+</body>
+<script>
+    const startButton = document.querySelector("#startButton")
+    const hourInputElem = document.querySelector("#hourInput");
+    const minuteInputElem = document.querySelector("#minuteInput");
+    const secondInputElem = document.querySelector("#secondInput");
+
+
+    startButton.addEventListener("click", evt => {
+        fetch("/inputtimer", {
+            method: "post",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                "second": secondInputElem.value,
+                "minute": minuteInputElem.value,
+                "hour": hourInputElem.value
+            })
+        })
+    })
+
+
+    function startTimer() {
+        fetch("/timerstart")
+            .then(res => res.text())
+            .then(res => {
+                let timer = true;
+                total_seconds = parseInt(res)
+
+                console.log(total_seconds)
+                let sec = total_seconds % 60;
+                let min = Math.floor(total_seconds / 60) % 60;
+                let hour = Math.floor(total_seconds / 3600);
+                setTimeout(() => { total_seconds = trackTime(total_seconds) }, 1000);
+                setTimeout(startTimer, 1000)
+                let displayTime = `${hour}:${min}:${sec}`
+                document.querySelector("h1").innerHTML = displayTime;
+                total_seconds -= 1;
+            })
+    }
+
+    startTimer()
+
+    function trackTime(time) {
+        return time - 1;
+
+    }
+
+
+
+
+
+
+
+</script>
+
+</html>

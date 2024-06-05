@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .square {
+            width: 7rem;
+            height: 7rem;
+            background-color: cornflowerblue;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .large {
+            width: 15rem;
+            height: 15rem;
+            background-color: forestgreen;
+        }
+        .mini {
+            width: 4rem;
+            height: 4rem;
+            background-color: firebrick;
+            border-radius: 10px;
+            position: absolute;
+            z-index: 1;
+        }
+        .medium{
+            position: relative;
+        }
+
+        .extra {
+            background-color: goldenrod;
+            margin-left: 2rem;
+        }
+
+        .more {
+            width: 2rem;
+            height: 2rem;
+            background-color: purple;
+            position: relative;
+            right: 17rem;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="square large">
+        <div class="square medium">
+            <div class="square mini"></div>
+        </div>
+    </div>
+    <div class="square large extra">
+        <div class="square more"></div>
+    </div>
+
+    <script>
+        let blueSquare = document.querySelector(".medium");
+        blueSquare.addEventListener("click", function(evt){
+            console.log("BLUE BOOM!", evt);
+            console.log("TARGET:", evt.target, "CURRENT:", evt.currentTarget);
+            // evt.stopPropagation(); //Stops bubbling the click event
+        })
+
+        let redSquare = document.querySelector(".mini");
+        redSquare.addEventListener("click", function (evt){
+            console.log("RED BOOM!", evt)
+            console.log("TARGET:", evt.target, "CURRENT:", evt.currentTarget);
+            // evt.stopPropagation(); //Stops bubbling the click event
+        })
+
+        let greenSquare = document.querySelector(".large");
+        greenSquare.addEventListener("click", function(evt){
+            console.log("GREEN BOOM!", evt);
+            console.log("TARGET:", evt.target, "CURRENT:", evt.currentTarget);
+        })
+
+        let yellowSquare = document.querySelector(".extra");
+        yellowSquare.addEventListener("click", function(evt){
+            console.log("YELLOW BOOM!", evt);
+            console.log("TARGET:", evt.target, "CURRENT:", evt.currentTarget);
+        })
+
+        let purpleSquare = document.querySelector(".more");
+        purpleSquare.addEventListener("click", function(evt){
+            console.log("PURPLE BOOM!", evt);
+            console.log("TARGET:", evt.target, "CURRENT:", evt.currentTarget);
+        })
+
+        greenSquare.addEventListener("mouseenter", ()=> {
+            console.log("ENTERED");
+        })
+
+        greenSquare.addEventListener("mouseleave", () => {
+            console.log("LEAVE");
+        })
+
+        greenSquare.addEventListener("mouseover", () => {
+            console.log("OVER")
+        })
+    </script>
+</body>
+</html>

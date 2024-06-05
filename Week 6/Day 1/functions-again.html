@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions - Advanced</title>
+</head>
+<body>
+    <script>
+        function greet(name) {
+            if (name) {
+                console.log(`Hello, ${name}!`)
+            }
+            else {
+                console.log("Hello!")
+            }
+        }
+
+        function introduce(greeting, name) {
+            greeting(name);
+            console.log("How are you?");
+            
+            function sayGoodBye() {
+                console.log("GOODBYE!")
+            }
+            sayGoodBye();
+            return "To the future!"
+        }
+
+        // introduce(greet, "Bob");
+
+        console.log("BACK:", introduce(greet, "Bob"));
+        
+    //anonymous functions = functions without a name
+        let anotherName = function () { 
+            return 42;
+        }
+        
+    //recursion functions = function that calls itself
+        function fib(one, two, limit) {
+            let newNum = one + two;
+            // runs over 1000 because it does not go through the if condition
+            // console.log(newNum); 
+
+            if (newNum < limit) {
+                console.log(newNum);
+                fib(two, newNum, limit);
+                // console.log(newNum);
+            }
+        }
+        fib (0, 1, 1000);
+
+    //Function declaration - HOISTED! (Functions are moved to the top before execution)
+        apple();
+        function apple() {
+            console.log("Crabapple!")
+        }
+
+    //Function expression - NOT HOISTED (won't execute if pear(); comes before function)
+        let pear = function () {
+            console.log("Asian pears!")
+        }
+        pear();
+
+    //permutation = another version 
+    //Immediately Invoked Function Expressions (IIFE)
+        (function () {
+            let stupidVariableName = "a";
+            let x = 1;
+            console.log("WUUUUUUUT?");
+        })();
+
+    
+    // Arrow functions
+        let lemon = function () {
+            console.log("Oooo... bitter.")
+        }
+
+        let lemonArrow = () => {
+            console.log("Oooo... bitter.")
+        }
+
+    //orangeNormal and orange are the same functions
+        function orangeNormal() {
+            return 12 + 10;
+        }
+
+        let orange = () => 12 + 10;
+
+        console.log(orange());
+
+        (() => console.log("BOB"))();
+
+        let randomNum = () => Math.floor(Math.random() * 10);
+        console.log("RANDOM:", randomNum());
+        console.log("RANDOM:", randomNum());
+        console.log("RANDOM:", randomNum());
+        console.log("RANDOM:", randomNum());
+
+        let letters = "jdsakldjlqjwretpksdqhuirhyojdsnmxnmbsakdhoqwjaskjf"
+        let letterArr = letters.split("");
+        console.log("LETTERS", letterArr);
+
+        //FILTER (Filter letters that are vowels)
+        let allVowels = letterArr.filter(
+            letter => {
+            if ("aeiou".includes(letter)) return true;
+            else return false;
+            }
+        );
+        //OR
+        // let allVowels = letterArr.filter(letter => "aeiou".includes(letter));
+        
+        //FOR EACH (print all the items in the array)
+        console.log("VOWELS:", allVowels);
+
+        letterArr.forEach(let => console.log(let));
+        letterArr.forEach(function (let) { console.log(let); })
+        
+        letterArr.sort(function (one, two) {
+            if (one < two) return -1;
+            else if (one > two) return 1;
+            else return 0;
+        })
+
+        console.log("SORTED", letterArr);
+
+        let cars = [
+            [1974, "Honda", "Prelude"],
+            [1969, "Chevy", "Corvette"],
+            [1999, "Chrysler", "Caravan"],
+            [2018, "Tesla", "Model S"],
+            [1994, "Renault", "Coupet"]
+        ];
+
+        //SORT (Organize items in array by numbers and letters)
+        console.log(cars.sort((carOne, carTwo) => carOne[0] - carTwo[0]));
+        // console.log(cars.sort((carOne, carTwo) => carOne[1] - carTwo[1]));
+
+        //Sorting cars by brand (REALLY DIFFICULT)
+        // cars.sort((car1, car2) => {
+        //     let car1Model = car1[1];
+        //     let car2Model = car2[1];
+        //     for (let i = 0; i < car1Model.length; i++) {
+        //         let letter = car1Model[i];
+        //         if (letter < car2Model[i]) return -1;
+        //         else if (letter > car2Model[i]) return 1;
+        //     }
+        //     return 0;
+        // })
+        // console.log("SORTED:", cars);
+
+        //Another way of sorting by brand (ALSO DIFFICULT T^T)
+        cars.sort((car1, car2) => {
+            const newArr = [car1[1],car2[1]];
+            newArr.sort();
+            if (car1[1] == newArr[0]) return -1;
+            else if (car2[0] == newArr[0]) return 1;
+            else return 0;
+        })
+        console.log("SORTED:", cars)
+
+        //MAP (Put in items from an array into a separate array)
+        let models = cars.map(item => item[2]);
+        console.log("MODELS:", models);
+
+        let leapYears = cars.map(item => {
+            let returnStr = item[0] + " is ";
+            if (
+                !(
+                    (item[0] % 4 === 0 && item[0] % 100 !== 0)
+                    || item[0] % 400 === 0
+                )
+            ) {
+                returnStr += "NOT ";
+            }
+            return returnStr += "a leap year."
+        });
+        console.log ("LEAP YEARS:", leapYears);
+
+        //REDUCE (Put all items into 1 data)
+        let totalYears = cars.reduce((accumulator, car) => accumulator + car[0], 0);
+        console.log("TOTAL:", totalYears);
+
+        let firstLetters = cars.reduce(
+            // (acc,car) => {
+            //     acc.push(car[1][0])
+            //     return acc;
+            // }
+            (acc, car) => acc.concat(car[1][0])
+                , []
+            );
+        console.log(firstLetters);
+
+        let firstMap = cars.map(car => car[1][0]);
+        console.log(firstMap);
+
+        let modelsReversed = cars
+                .map(car => car[2])
+                .sort()
+                .reverse()
+                .join(", ");
+        console.log("REVERSE: ", modelsReversed);
+</script>
+</body>
+</html>

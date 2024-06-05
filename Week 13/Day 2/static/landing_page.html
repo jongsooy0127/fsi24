@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Exercise</title>
+</head>
+
+<body>
+    <fieldset>
+        <legend>GET /user ID</legend>
+        <form id="userGet">
+            <div>
+                <label>
+                    Please enter your user ID:
+                    <input id="userIdInput">
+                </label>
+            </div>
+            <div style="margin-top: 1em;">
+                <label>
+                    Enter a snack:
+                    <input id="snackInput">
+                </label>
+            </div>
+            <button>Send</button>
+        </form>
+        <div id="userGetResult"></div>
+    </fieldset>
+</body>
+
+<script>
+    const userIdInputElem = document.querySelector("#userIdInput")
+    const snackInputElem = document.querySelector("#snackInput")
+
+    document.querySelector("#userGet").addEventListener("submit", evt => {
+        evt.preventDefault();
+
+        fetch("/user/" + userIdInputElem.value + "?snack=" + snackInputElem.value)
+            .then(res => res.json())
+            .then(res => {
+                document.querySelector("#userGetResult").innerHTML = res.message
+            })
+    })
+</script>
+
+</html>

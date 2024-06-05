@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jetson Family Detail</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Search for your favorite Jetson character</h1>
+    <div>
+        <form id="jetson-form">
+            <input type="text" id="jetson-search">
+            <button>Search</button>
+        </form>
+        <div id="sample"></div>
+    </div>
+</body>
+
+<script>
+    const jetsonFormElem = document.querySelector("#jetson-form");
+    const jetsonInputElem = document.querySelector("#jetson-search");
+    const sample = document.querySelector("#sample")
+
+    resObject = null;
+
+    jetsonInputElem.addEventListener("keyup", evt => {
+        if (jetsonInputElem.value.length >= 3) {
+            fetch("/details")
+                .then(res => res.json())
+                .then(res => {
+                    resObject = res;
+                    for (char of res) {
+                        if (char.name.includes(jetsonInputElem.value)) {
+                            console.log("Hello")
+                            searchResults = document.createElement("div");
+                            searchResults.innerHTML = char.name;
+                            sample.appendChild(searchResults)
+                        }
+                        else console.log("SKIPPED", char.name)
+                    }
+                })
+            }
+        })
+    
+
+
+
+    // jetsonFormElem.addEventListener("submit", evt => {
+    //     fetch("/details/"+jetsonInputElem.value)
+    //         .then(res => res.json())
+    //         .then(res => {
+                
+    //         })
+    // })
+</script>
+
+</html>

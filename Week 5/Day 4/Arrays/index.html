@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays</title>
+</head>
+<body>
+    <script>
+        let fruit = ["apple", "lemon", "kiwi", "watermelon"]
+        let colors = [];
+        colors.push("red");
+        colors.push("green");
+        colors.push("blue");
+
+        console.log(fruit[0]);
+        console.log(fruit.at(0))
+
+        console.log(fruit[fruit.length - 1])
+        console.log(fruit.at(-1))
+
+        console.log(fruit[3])
+        console.log(fruit.at(3))
+
+        let lastFruit = fruit.pop(); //removes "watermelon" but stores it
+        fruit.pop(); //removes "kiwi" but doesn't store it
+
+        //-----------------AVOID SHIFT AND UNSHIFT AS MUCH AS POSSIBLE======================
+    </script>
+</body>
+</html>

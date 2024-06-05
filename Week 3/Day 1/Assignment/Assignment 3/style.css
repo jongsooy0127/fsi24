@@ -1,0 +1,119 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+    background-color: cornflowerblue;
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
+}
+
+section {
+    width: 960px;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 1%;
+    padding: 3em 0em;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+section > div > ul > li {
+    text-align: center;
+}
+
+h2 {
+    color: gray;
+    font-size: 1.5em;
+    margin-bottom: 2em;
+    margin-top: 1em;
+}
+
+ul {
+    width: 70%
+}
+
+ul>li {
+    font-size: 1em;
+    color:cornflowerblue;
+    text-transform: uppercase;
+    padding: 2em;
+    border-top: solid 2px lightgray;
+}
+
+.price {
+    font-size: 2.5em;
+    color:dodgerblue;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-bottom: 5%;
+}
+
+section>div>button {
+    background-color: white;
+    color: cornflowerblue;
+    font-size: 1.5em;
+    padding: .5em 1em;
+    border: solid 2px cornflowerblue; 
+    border-radius: 5%;
+}
+
+section>div>button:nth-of-type(2) {
+    background-color: cornflowerblue;
+    color: white;
+}

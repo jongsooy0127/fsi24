@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image List</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+
+        #carousel {
+            width: 60rem;
+            height: 15rem;
+            overflow: hidden;
+            /* overflow-x: scroll; */
+            position: relative
+                /* display: flex; */
+        }
+
+        .arrow {
+            position: absolute;
+            top: 5.5rem;
+            z-index: 99;
+            left: 0.25rem;
+            font-size: 3rem;
+            fill: white;
+            width: 2rem;
+            color: white;
+            text-shadow: 0px 0px 4px black;
+        }
+
+        .arrow.right {
+            left: 57.75rem;
+        }
+
+        .slider {
+            white-space: nowrap;
+            width: 100rem;
+            height: 100%;
+            transform: translateX(-20rem);
+            position: relative;
+        }
+
+        .horse {
+            display: inline-block;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 20rem;
+            height: 100%;
+            overflow: hidden;
+            padding: 1rem;
+            /* display: flex;
+            align-items: flex-end;
+            justify-content: center; */
+            color: white;
+            position: absolute;
+            transition: all 0.5s;
+            /* margin-right: -0.25rem; */
+        }
+
+        .horse h4 {
+            margin: 10rem 0 0 1rem;
+            text-shadow: 0px 0px 4px white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="carousel">
+        <div class="arrow left">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+        </div>
+        <div class="arrow right">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
+            </svg>
+        </div>
+        <div class="slider">
+        </div>
+    </div>
+
+    <script>
+        import './example.js'
+
+        const allImages = [
+            {
+                caption: "cat funny",
+                url: "catpics/cat1.webp"
+            },
+            {
+                caption: "cat yawn",
+                url: "catpics/cat2.webp"
+            },
+            {
+                caption: "cat jump",
+                url: "catpics/cat3.webp"
+            },
+            {
+                caption: "cat lie",
+                url: "catpics/cat4.webp"
+            },
+            {
+                caption: "cat dream",
+                url: "catpics/cat5.webp"
+            },
+        ];
+
+        const sliderElem = document.querySelector(".slider");
+        const leftArrow = document.querySelector(".left.arrow");
+        const rightArrow = document.querySelector(".right.arrow");
+
+        // allImages.forEach(img => {
+        function insertNewHorse(newHorse) {
+            const newDiv = document.createElement("div")
+            newDiv.className = "horse";
+            newDiv.style.backgroundImage = `url("${newHorse.url}")`
+
+            newH = document.createElement("h4")
+            newH.innerHTML = newHorse.caption;
+            newDiv.appendChild(newH);
+
+            sliderElem.appendChild(newDiv)
+        }
+
+        insertNewHorse(allImages.at(-1), "0");
+        // Insert last first to provide something to the left of first visible horse
+
+        //Insert
+        for (let i = 0; i < allImages.length - 1; i++) {
+            const img = allImages[i];
+            insertNewHorse(img, [20 * i] + "rem");
+        }
+
+        let itemIdx = 0;
+
+        leftArrow.addEventListener("click", () => {
+            for (let i = 0; i < sliderElem.children.length - 1; i++) {
+                const item = sliderElem.children[i];
+                const oldLeft = item.style.left;
+                const oldAmt = parseInt(oldLeft.substring(0, oldLeft.indexOf("rem")));
+
+                const newAmt = 20 + oldAmt;
+                if (newHorse >= (sliderElem.children * 20)) {
+                    item.style.left = "0rem";
+                } else {
+                    item.style.left = ((20 + oldAmt) + "rem");
+                }
+            }
+            sliderElem.children[sliderElem.children.length - 1].style.left = "0";
+        });
+
+        rightArrow.addEventListener("click", () => {
+            itemIdx -= 1;
+            sliderElem.style.transform = `translateX(${itemIdx * 20}rem)`;
+
+            const lastItem = sliderElem.children[sliderElem.children.length - 1];
+            const firstItem = sliderElem.children[0];
+            sliderElem.removeChild(firstItem);
+            sliderElem.appendChild(firstItem);
+            sliderElem.style.transform = `translateX(0rem)`;
+        });
+    </script>
+</body>
+
+</html>

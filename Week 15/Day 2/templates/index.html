@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <a href="./index.html" class="nav-link fs-5 text-light ps-5">Blogster</a>
+            <a href="./html/create_post.html" class="nav-link fs-5 text-light pe-5">Create Post</a>
+        </div>
+    </nav>
+    <form id="articleForm" method="post">
+        <div class="d-flex flex-column align-items-center mt-3">
+            <div class="d-flex flex-row justify-content-center">
+                <input type="hidden" name="activity_action" value="writearticle">
+                <input type="text" name="title" placeholder="Title" id="articleTitle"
+                    class="col mb-2 rounded-pill mx-4">
+                <input type="text" name="tag" placeholder="Tag" id="articleTag" class="col mb-2 rounded-pill mx-4">
+                <input type="text" name="author" placeholder="Author" id="articleAuthor"
+                    class="col mb-2 rounded-pill mx-4">
+            </div>
+            <div class="d-flex flex-row justify-content-center">
+                <textarea id="articleContent" rows="5" cols="100" name="content" class="mb-3 rounded mx-3">Input content here...
+                </textarea>
+                <div class="d-flex flex-column align-items-center m-auto mx-3">
+                    <button id="articleSubmit" class="px-3 py-2 bg-success text-dark bg-opacity-25">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% for article in article_res %}
+    <h2 class="d-inline-block">{{article.title}} - by {{article.author}}</h2>
+    <span class="d-inline-block bg-warning rounded-pill fw-lighter"
+        style="padding: 3px 0px 3px 0px">{{article.tag}}</span>
+    <h3>{{article.created_at}}</h3>
+    <p>{{article.content}}</p>
+    <form id="commentForm" class="commentForm" method="post">
+        <input type="hidden" name="activity_action" value="writecomment">
+        <input type="hidden" name="article_id" value="{{article.id}}">
+        <input type="text" name="author" placeholder="Author" id="commentAuthor" class="col commentAuthor">
+        <input type="text" name="comment" placeholder="Comment" id="commentComment" class="col commentComment">
+        <button>Submit</button>
+    </form>
+    {% for comment in comment_res %}
+    {% if article.id == comment.article_id %}
+    <h5 class="d-inline-block">{{comment.author}}</h5>
+    <p class="d-inline-block">{{comment.created_at}}</p>
+    <p>{{comment.comment}}</p>
+    {% endif %}
+    {% endfor %}
+    <hr>
+    {% endfor %}
+
+
+    <!-- <script>
+        const articleFormElem = document.querySelector("#articleForm");
+        const articleTitleElem = document.querySelector("#articleTitle");
+        const articleTagElem = document.querySelector("#articleTag");
+        const articleAuthorElem = document.querySelector("#articleAuthor");
+        const articleContentElem = document.querySelector("#articleContent");
+
+        articleFormElem.addEventListener("submit", evt => {
+            evt.preventDefault();
+
+            fetch("/writearticle", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    "title": articleTitleElem.value,
+                    "tag": articleTagElem.value,
+                    "author": articleAuthorElem.value,
+                    "content": articleContentElem.value
+                })
+            })
+                .then(res => res.text())
+                .then(res => {
+                    if (res === "OK") {
+                        alert("You have submitted your article!")
+                    } else alert("Please try again later!")
+                })
+            articleTitleElem.value = "";
+            articleAuthorElem.value = "";
+            articleTagElem.value = "";
+            articleContentElem.value = "";
+        })
+
+        const commentFormElem = document.querySelector(".commentForm");
+        const commentAuthorElem = document.querySelector(".commentAuthor");
+        const commentCommentElem = document.querySelector(".commentComment");
+
+        // for (form of commentFormElem) {
+        commentFormElem.addEventListener("submit", evt => {
+            evt.preventDefault();
+
+            fetch("/writecomment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    "author": commentAuthorElem.value,
+                    "comment": commentCommentElem.value
+                })
+            })
+                .then(res => res.text())
+                .then(res => {
+                    if (res === "OK") {
+                        alert("Your comment have been sent!")
+                    } else alert("Please try again later")
+                })
+        }) -->
+
+    <!-- // } -->
+
+    <!-- </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

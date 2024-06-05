@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Form</title>
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    form {
+        gap: 2rem;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <form method="get">
+        <label> Name:
+            <input name="name">
+        </label>
+
+        <label> Color:
+            <input name="color">
+        </label>
+        <div>
+            <div>Going: </div>
+            <label>
+                Yes:
+                <input name="going" type="radio" value="true">
+            </label>
+            <label>
+                No:
+                <input name="going" type="radio" value="false">
+            </label>
+        </div>
+        <button>Submit</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+nav a {
+    font-size: 30px;
+    color: teal;
+    font-weight: bold;
+}
+
+.like {
+    color: blue;
+    font-weight: bold;
+}
+
+.dislike {
+    color: red;
+    font-weight: bold;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNU Assignment</title>
+</head>
+<body>
+    <script src="SNU-assignment-data.js"></script>
+    <script>
+//An SNU physics professor needs help figuring out which data lines in his research results file are good for his research paper and which are inconvenient. While he has a couple grad students he can have work on this processing, they are already overworked and busy on other tasks. He has lunch with a politician friend in an hour and he heard you can program. Without asking if you have free time, he corners you during your own lunch, butters you up with compliments, and starts getting into the details:
+
+// A good line is one with all of the following properties:
+
+// It contains at least three vowels (aeiou only), like aei, xazegov, or aeiouaeiouaeiou.
+// It contains at least one letter that appears twice in a row, like xx, abcdde (dd), or aabbccdd (aa, bb, cc, or dd).
+// It does not contain the strings ab, cd, pq, or xy, even if they are part of one of the other requirements.
+
+// For example:
+
+// ugknbfddgicrmopn is good because it has at least three vowels (u...i...o...), a double letter (...dd...), and none of the disallowed substrings.
+// aaa is good because it has at least three vowels and a double letter, even though the letters used by different rules overlap.
+// jchzalrnumimnmhp is inconvenient because it has no double letter.
+// haegwjzuvuyypxyu is inconvenient because it contains the string xy.
+// dvszwmarrgswjxmb is inconvenient because it contains only one vowel.
+
+// How many lines are good ones he can use in his research paper?
+
+const newData = data.split(`\n`);
+let count = 0;
+let firstTest = /[aeiou]/g
+
+for (let subdata of newData){
+    if (subdata.includes(firstTest) === true){
+        count+=1
+    }
+}
+
+console.log(count);
+
+// BONUS: After his lunch meeting, the professor "runs into" you at the water cooler and expresses the error of his ways; the professor has now switched to a better model of determining whether a line of data is inconvenient or good. None of the old rules apply, as they are all clearly ridiculous. He needs these by the end of the day to qualify for a research grant, which would be auspcious for the school, and so by association, also benefitial for you.
+
+// Now, a good line is one with all of the following properties:
+
+// It contains a pair of any two letters that appears at least twice in the line without overlapping, like xyxy (xy) or aabcdefgaa (aa), but not like aaa (aa, but it overlaps).
+// It contains at least one letter which repeats with exactly one letter between them, like xyx, abcdefeghi (efe), or even aaa.
+
+// For example:
+
+// qjhvhtzxzqqjkmpb is good because is has a pair that appears twice (qj) and a letter that repeats with exactly one letter between them (zxz).
+// xxyxx is good because it has a pair that appears twice and a letter that repeats with one between, even though the letters used by each rule overlap.
+// uurcxstgmygtbstg is inconvenient because it has a pair (tg) but no repeat with a single letter between them.
+// ieodomkazucvgmuy is inconvenient because it has a repeating letter with one between (odo), but no pair that appears twice.
+
+// How many lines are good under these new rules?
+
+
+// Here are the lines of data from the research results:
+    
+    </script>
+</body>
+</html>

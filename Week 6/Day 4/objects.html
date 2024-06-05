@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects</title>
+</head>
+<body>
+    <script>
+        let fruitNames = ["apple", "lemon", "orange"];
+        let fruitArr = [
+            ["apple", "red", 12],
+            ["lemon", "yellow", 2],
+            ["orange", "orange", 8]
+        ]
+        
+        let fruitObj = [
+            {
+                name: "apple",
+                color: "red",
+                numVarities: 12,
+            },
+            {
+                name: "lemon",
+                color: "yellow",
+                numVarities: 2,
+            },
+            {
+                name: "orange",
+                color: "orange",
+                numVarities: 8,
+            }
+        ];
+
+        let person = { 
+            name: "Robert",
+            "nick-name": "Bob", 
+            age: 32,
+            height: 1.7, 
+            favAnimal: ["bear", "tiger"],
+            sayHello: function() {
+                console.log("Hello, " + this.name);
+            }
+        }
+
+        person.sayHello();
+
+        console.log("NAME:", person.name);
+        console.log("NAME:", person["name"]); //SAME AS ABOVE
+        let n = "name";
+        console.log("NAME:", person[n]); //SAME AS ABOVE
+        console.log("NAME:", person["na" + "me"]); //SAME AS ABOVE
+
+        // console.log("NAME:", person.nick-name); //DOESN'T WORK
+        console.log("AGE:", person['nick-name']); //Only way you can get to it, because of the minus
+
+        console.log("AGE:", person['age']);
+
+        let elephant = {};
+        elephant.type = "elephant";
+        elephant.color = "grey";
+        elephant.weight = 10000;
+
+        // let newPerson = person;
+        // newPerson.age = 21;
+        // console.log("ORIG:", person, "NEW:", newPerson);
+
+        let newPerson = Object.assign({}, person);
+        newPerson.age = 21;
+        console.log("ORIG:", person, "NEW:", newPerson);
+
+        let lion = {};
+        lion.type = "lion",
+        lion.color = "tan",
+        lion.weight = 500;
+
+        let bear = {
+            type: "bear",
+            color: "brown",
+            weight: 800
+        }
+
+        let tiger = {
+            type: "tiger",
+            color: "yellow",
+            weight: 700
+        }
+
+        function Animal(type, color, weight, call) {
+            this.type = type;
+            this.color = color;
+            this.weight = weight;
+            this.call = call;
+            // this.introduce = function () {
+            //     console.log(`I am a ${this.color} ${this.type} and I weight ${this.weight} pounds`);
+            // }
+        }
+
+        Animal.prototype.introduce = function () {
+            console.log(`I am a ${this.color} ${this.type} and I weight ${this.weight} pounds`);
+        }
+
+        //Outside of objects, arrow functions may have consequences
+
+        // let Animal = function (type, color, weight) {
+        //     this.type = type;
+        //     this.color = color;
+        //     this.weight = weight;
+        // }
+
+        let eagle = new Animal("eagle", "brown", 20);
+        console.log("EAGLE:", eagle);
+
+        let zebra = new Animal("zebra", "black and white", 500);
+
+        let cuckoo = new Animal("cuckoo", "dirt", 1, () => console.log("CUCKOOOO!"));
+
+        cuckoo.call();
+
+        lion.call = () => console.log("ROOAR!");
+
+        lion.call();
+
+        eagle.introduce();
+        cuckoo.introduce();
+        zebra.introduce();
+
+        class Vegetable {
+            constructor(name, inColor, numVar) {
+                if (inColor == "") inColor = "green";
+
+                this.name = name;
+                this.color = color;
+                this.numVarities = numVar;
+
+                this.setColor(inColor);
+
+                this.specificFunction = () => {
+                    console.log("Own copy of the function.");
+                }
+            }
+            introduce() {
+                console.log(`I am a ${this.color} ${this.name}, and I come in ${this.numVar} varities`);
+            }
+
+            setColor(newColor) {
+                if (!newColor) newColor = "green";
+                this.color = newColor;
+            }
+        }
+    </script>
+</body>
+</html>
